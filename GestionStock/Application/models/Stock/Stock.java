@@ -162,6 +162,12 @@ public class Stock {
     public void acheter(Element e, Double quantite) {
         this.getListeAchat().acheter(e, quantite);
     }
+    
+    /**
+     * 
+     * @param code 
+     * @return un element en stock
+     */
 
     public Element getElementByCode(String code) {
 

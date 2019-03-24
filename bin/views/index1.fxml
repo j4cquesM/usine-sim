@@ -15,17 +15,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.StockCtrl">
    <children>
-      <SplitPane dividerPositions="0.30660377358490565" layoutX="89.0" layoutY="113.0" orientation="VERTICAL" prefHeight="638.0" prefWidth="738.0" stylesheets="@css.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.30660377358490565" layoutX="89.0" layoutY="113.0" orientation="VERTICAL" prefHeight="638.0" prefWidth="738.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background" stylesheets="@css.css">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text fill="#192e40" layoutX="340.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Charger les fichiers CSV" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="373.1083984375" AnchorPane.topAnchor="9.5791015625">
+                  <Text layoutX="340.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Charger les fichiers CSV" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="373.1083984375" AnchorPane.topAnchor="9.5791015625">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font size="22.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnElement" layoutX="310.0" layoutY="69.0" mnemonicParsing="false" onAction="#chargerElementCSV" prefHeight="54.0" prefWidth="101.0" text="Element" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="567.0" AnchorPane.topAnchor="69.0" />
-                  <Button fx:id="btnChaine" layoutX="577.0" layoutY="69.0" mnemonicParsing="false" onAction="#chargerChaineCSV" prefHeight="54.0" prefWidth="101.0" text="Chaine" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="570.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="69.0" />
+                  <Button fx:id="btnElement" layoutX="310.0" layoutY="69.0" mnemonicParsing="false" onAction="#chargerElementCSV" prefHeight="54.0" prefWidth="101.0" text="Element" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="567.0" AnchorPane.topAnchor="69.0" />
+                  <Button fx:id="btnChaine" layoutX="577.0" layoutY="69.0" mnemonicParsing="false" onAction="#chargerChaineCSV" prefHeight="54.0" prefWidth="101.0" text="Chaine" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="577.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="69.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -36,9 +36,9 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <SplitPane dividerPositions="0.5013623978201635" layoutX="99.0" layoutY="64.0" prefHeight="404.0" prefWidth="736.0" stylesheets="@css.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <SplitPane dividerPositions="0.5013623978201635" layoutX="99.0" layoutY="64.0" prefHeight="404.0" prefWidth="736.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                              <children>
                                                 <TableView fx:id="listeStock" layoutX="14.0" layoutY="14.0" prefHeight="402.0" prefWidth="364.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                                   <columns>
@@ -50,20 +50,20 @@
                                                       <TableColumn fx:id="colQuantiteStock" prefWidth="75.0" text="Quantite" />
                                                   </columns>
                                                 </TableView>
-                                                <Text fill="#192e40" layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Liste des stocks" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="10.0">
+                                                <Text layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des stocks" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="10.0">
                                                    <font>
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="valeurStock" fill="#192e40" layoutX="141.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="332.7294921875">
+                                                <Text fx:id="valeurStock" layoutX="141.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="332.7294921875">
                                                    <font>
                                                       <Font name="System Bold Italic" size="15.0" />
                                                    </font></Text>
                                              </children>
                                           </AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                              <children>
-                                                <Text fill="#192e40" layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Liste d'achat" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="13.0">
+                                                <Text layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste d'achat" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="13.0">
                                                    <font>
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
@@ -78,7 +78,7 @@
                                                       <TableColumn fx:id="ColQuantiteLA" prefWidth="75.0" text="Quantite" />
                                                    </columns>
                                                 </TableView>
-                                                <Text fx:id="valeurListeAchat" fill="#192e40" layoutX="145.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="327.7294921875">
+                                                <Text fx:id="valeurListeAchat" layoutX="145.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="327.7294921875">
                                                    <font>
                                                       <Font name="System Bold Italic" size="15.0" />
                                                    </font></Text>
@@ -92,22 +92,23 @@
                       </Tab>
                       <Tab text="Chaines">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ComboBox fx:id="listeChaine" layoutX="339.0" layoutY="69.0" prefHeight="26.0" prefWidth="220.0" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="69.0" />
-                                    <Text layoutX="80.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Choisissez une chaîne" AnchorPane.bottomAnchor="312.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="583.0" AnchorPane.topAnchor="69.0">
+                                    <ComboBox fx:id="listeChaine" layoutX="339.0" layoutY="69.0" prefHeight="26.0" prefWidth="220.0" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="69.0" />
+                                    <Text layoutX="80.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisissez une chaîne" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="69.0">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="140.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Niveau d'activation" AnchorPane.bottomAnchor="252.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="606.578125" AnchorPane.topAnchor="129.0">
+                                    <Text layoutX="140.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau d'activation" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="129.0">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="fieldNiveauActivation" layoutX="309.0" layoutY="150.0" prefHeight="26.0" prefWidth="220.0" styleClass="text-field" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="129.0" />
-                                    <Button fx:id="btnSimuler" layoutX="841.0" layoutY="269.0" mnemonicParsing="false" onAction="#simulation" text="Simuler" AnchorPane.bottomAnchor="99.0" AnchorPane.leftAnchor="841.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="269.0" />
-                                    <Text fill="#192e40" layoutX="232.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Simulation" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="13.5791015625">
+                                    <TextField fx:id="fieldNiveauActivation" layoutX="309.0" layoutY="150.0" prefHeight="26.0" prefWidth="220.0" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="129.0" />
+
+                                    <Button fx:id="btnSimuler" layoutX="841.0" layoutY="269.0" mnemonicParsing="false" onAction="#simulation" text="Simuler" AnchorPane.leftAnchor="841.0" />
+                                    <Text fill="#ae1515" layoutX="232.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulation" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="13.5791015625">
                                        <font>
                                           <Font name="System Bold" size="22.0" />
                                        </font>

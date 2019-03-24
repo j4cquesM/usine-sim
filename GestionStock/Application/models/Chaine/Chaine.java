@@ -68,7 +68,7 @@ public class Chaine {
 					
 				} catch (NonExistantException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new ProductionImpossibleException(elem);
 				}
 						
 				

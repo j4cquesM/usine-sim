@@ -1,0 +1,222 @@
+.background {
+    -fx-background-color: #F1FFFF;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FFFFFF;
+
+}
+
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    
+}
+
+.label-header {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: red;
+    -fx-background-color : white;
+  
+}
+
+.table-view {
+    -fx-base: #50A5A6;
+    -fx-background-color: #50A5A6;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label .tab {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #FFFFFF;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #192E40 transparent #192E40 ;
+    -fx-background-color: transparent, derive(#192E40 ,20%);
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-border-color: transparent #192E40 transparent #192E40 ;
+    -fx-background-color: transparent, derive(#192E40 ,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/* 
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #192E40;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #93BFAF;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #034F50;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #034F50;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+
+
+.tab-pane {
+     -fx-tab-min-height: 2em;
+    -fx-tab-max-height: 2em;
+    -fx-tab-min-width: 4em;
+    -fx-tab-max-width: 4em;
+    -fx-padding: 0 -1 -1 0;
+}
+
+.tab{
+
+    -fx-background-color: #6DA6A0;
+     -fx-border-color: transparent #192E40 transparent #192E40;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+    -fx-padding: 0 10 0 10;
+}
+
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #50A5A6;
+}
+
+
+.tab:selected
+{
+    -fx-background-color: #F2FEFA;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0 0 5 0;
+    -fx-border-color: #05D39B;
+   
+}
+
+
+
+.text-area {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12;
+    -fx-text-fill: #ffffff;
+    -fx-display-caret:true;
+}
+
+.text-area .content {
+    -fx-background-color: #50A5A6;
+    fx-border-color: transparent #192E40 transparent #192E40;
+}
+
+.text-area:focused{
+	 -fx-background-color: #6DA6A0 ;
+}
+
+
+
+.text-field {
+    -fx-background-color: #50A5A6;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+    fx-border-color: transparent #192E40 transparent #192E40;
+    -fx-text-fill: #ffffff;
+}
+.text-field:focused {
+    -fx-background-color: #6DA6A0 ;
+    
+}
+
+
+.combo-box
+{
+    -fx-background: white;
+    -fx-background-color: #50A5A6;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em; 
+}
+
+
+.combo-box-popup 
+{
+    -fx-background-color: #6DA6A0;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+   

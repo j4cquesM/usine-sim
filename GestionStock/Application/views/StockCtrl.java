@@ -109,6 +109,9 @@ public class StockCtrl implements Initializable {
         this.application = applicationPrincipale;
     }
 
+    /**
+     * methode appelée au chargement du fichier fxml
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -124,6 +127,9 @@ public class StockCtrl implements Initializable {
 
     /*****************************************PARTIE PRIVÉE*******************************************************************/
 
+    /**
+     * Affiche la liste des stocks
+     */
 
     private void afficheStock() {
         // On ajoute le stock observable au tableau
@@ -155,6 +161,11 @@ public class StockCtrl implements Initializable {
         valeurStock.setText("Valeur du stock : " + this.application.getStockData().getValeur() + " €");
 
     }
+    
+
+    /**
+     * Affiche la liste d'achat
+     */
 
     private void afficheListeAchat() {
         //on ajoute la liste d'achat au tableau
@@ -185,12 +196,22 @@ public class StockCtrl implements Initializable {
         //on affiche la valeur de la liste de la liste d'achat
         valeurListeAchat.setText("Valeur de la liste d'achat : " + this.application.getStockData().getListeAchat().getValeur() + " €");
     }
+    
+
+    /**
+     * Affiche la liste des chaines
+     */
 
 
     private void afficheListeChaine() {
         listeChaine.setPromptText("(Sélectionnez une chaine");
         listeChaine.setItems(this.application.getChaineData());
     }
+    
+
+    /**
+     * Affiche le niveau d'activation
+     */
 
     private void afficheNiveauActivation() {
 
@@ -272,7 +293,7 @@ public class StockCtrl implements Initializable {
     }
 
     /**
-     * fonction appelée au chargement des fichiers csv
+     * fonction appelée au chargement des chaines csv
      */
     @FXML
     private void chargerChaineCSV() {
@@ -294,6 +315,10 @@ public class StockCtrl implements Initializable {
 
         }
     }
+    
+    /**
+     * fonction appelée au chargement des elements csv
+     */
 
     @FXML
     private void chargerElementCSV() {
@@ -315,6 +340,10 @@ public class StockCtrl implements Initializable {
 
 
     }
+    
+    /**
+     * fenetre de dialogue
+     */
 
     private boolean alertChargement() {
         if (!this.isElementCharge) {
@@ -330,6 +359,11 @@ public class StockCtrl implements Initializable {
         return true;
 
     }
+    
+
+    /**
+     * fenetre de dialogue
+     */
 
     private void showIsEmpty() {
         Alert alert = new Alert(AlertType.WARNING);

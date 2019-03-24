@@ -71,9 +71,6 @@ public class FactoryApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
         this.primaryStage.setTitle("FactoryApp");
-        
-        //definition de l'icone
-        this.primaryStage.getIcons().add(new Image("file:ressources/images/home.png"));
 
         //Affichage de l'ecran 
         showIndex();		

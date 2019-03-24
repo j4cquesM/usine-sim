@@ -85,6 +85,10 @@ public class SimulationCtrl implements Initializable {
 
         this.application = applicationPrincipale;
     }
+    
+    /**
+     * methode appelée au chargement du fichier fxml
+     */
 
 
     @Override
@@ -105,7 +109,10 @@ public class SimulationCtrl implements Initializable {
     }
 
     /*****************************************PARTIE PRIVÉE*******************************************************************/
-
+    
+    /**
+     * Affiche la liste des stocks
+     */
 
     private void afficheStock() {
         // On ajoute le stock observable au tableau
@@ -137,6 +144,10 @@ public class SimulationCtrl implements Initializable {
         valeurStock.setText("Valeur du stock : " + this.getStockData().getValeur() + " €");
 
     }
+    
+    /**
+     * Affiche la liste d'achat
+     */
 
     private void afficheListeAchat() {
         //on ajoute la liste d'achat au tableau
@@ -167,7 +178,59 @@ public class SimulationCtrl implements Initializable {
         //on affiche la valeur de la liste de la liste d'achat
         valeurListeAchat.setText("Valeur de la liste d'achat : " + this.getStockData().getListeAchat().getValeur() + " €");
     }
+    
+    
+    /**
+     * Methode pour 
+     */
 
+   
+
+    @FXML
+    private void exporter() {
+        //pour avoir le stock tu fais this.getStockData()
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File selectedFile = fileChooser.showSaveDialog(this.application.getPrimaryStage());
+        if (selectedFile != null) {
+            String cheminDuFichier = selectedFile.getAbsolutePath();
+            if (  ! cheminDuFichier.isEmpty() ){
+            	
+            	Stock s = this.getStockData();
+                Map listeachat = s.getListeAchat().getListeAchat();
+                Map stock = s.getStock();
+
+                JSONTemplate template = new JSONTemplate(cheminDuFichier, stock, listeachat);
+                JSONSerializer serializer = new JSONSerializer();
+                try {
+                    serializer.serializeToFile(template);
+                } catch (IOException e) {
+                    System.out.println("Impossible d'écrire dans le fichier - "+e.getMessage());
+                }
+            }
+            else {
+            	 this.showIsEmpty();
+            }
+        }
+        
+            
+
+        
+    }
+
+
+    private void showIsEmpty() {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.initOwner(this.application.getPrimaryStage());
+        alert.setTitle("Impossible");
+        alert.setHeaderText("Aucun fichier");
+        alert.setContentText("Vous devez entrer le nom d'un fichiers !");
+
+        alert.showAndWait();
+    }
+    
     private ObservableList<ElementAffichable> stockAffichable() {
 
         ObservableList<ElementAffichable> stockAffichable = FXCollections.observableArrayList();
@@ -195,44 +258,6 @@ public class SimulationCtrl implements Initializable {
         }
         return achatAffichable;
 
-    }
-
-    @FXML
-    private void exporter() {
-        //pour avoir le stock tu fais this.getStockData()
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        File selectedFile = fileChooser.showSaveDialog(this.application.getPrimaryStage());
-        if (selectedFile != null) {
-            String cheminDuFichier = selectedFile.getAbsolutePath();
-            Stock s = this.getStockData();
-            Map listeachat = s.getListeAchat().getListeAchat();
-            Map stock = s.getStock();
-
-            JSONTemplate template = new JSONTemplate(cheminDuFichier, stock, listeachat);
-            JSONSerializer serializer = new JSONSerializer();
-            try {
-                serializer.serializeToFile(template);
-            } catch (IOException e) {
-                System.out.println("Impossible d'écrire dans le fichier - "+e.getMessage());
-            }
-
-        } else {
-            this.showIsEmpty();
-        }
-    }
-
-
-    private void showIsEmpty() {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.initOwner(this.application.getPrimaryStage());
-        alert.setTitle("Impossible");
-        alert.setHeaderText("Aucun fichier");
-        alert.setContentText("Vous devez entrer le nom d'un fichiers !");
-
-        alert.showAndWait();
     }
 
 
