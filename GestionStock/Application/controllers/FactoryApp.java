@@ -70,7 +70,7 @@ public class FactoryApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("FactoryApp");
+        this.primaryStage.setTitle("UsineAPP");
 
         //Affichage de l'ecran 
         showIndex();		
