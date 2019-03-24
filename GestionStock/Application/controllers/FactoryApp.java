@@ -137,7 +137,7 @@ public class FactoryApp extends Application {
 
 	/**
 	 * Met le stock dans une classe qui permet l'affichage
-	 * @return 
+	 * @return  la liste observable de stock 
 	 */
 	public ObservableList<ElementAffichable> getStockAffichable() {
 		

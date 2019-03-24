@@ -22,7 +22,7 @@ public class ListeAchat {
 	
 	/**
 	 * Constructeur par copie
-	 * @param l
+	 * @param l la liste d'achat
 	 */
 	
 	public ListeAchat(ListeAchat l) {

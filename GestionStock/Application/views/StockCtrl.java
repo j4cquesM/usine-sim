@@ -240,6 +240,7 @@ public class StockCtrl implements Initializable {
 
     /**
      * Methode appelée pour effectuer une simulation
+     * @throws ProductionImpossibleException production impossible
      */
 
     @FXML
@@ -343,6 +344,7 @@ public class StockCtrl implements Initializable {
     
     /**
      * fenetre de dialogue
+     * @return l'autorisation de charger les chaines
      */
 
     private boolean alertChargement() {

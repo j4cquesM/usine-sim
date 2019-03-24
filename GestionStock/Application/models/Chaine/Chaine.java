@@ -35,8 +35,9 @@ public class Chaine {
 	/**
 	 * 
 	 * @param niveauActivation le niveau d'activation de la chaine
+	 * @param stock le stock 
 	 * @return le benefice produit
-	 * @throws NonExistantException 
+	 *  @throws ProductionImpossibleException production impossible
 	 */
 	public Stock  produire(double niveauActivation, Stock stock) throws ProductionImpossibleException
 	{
@@ -84,8 +85,8 @@ public class Chaine {
 	
 	/**
 	 * Ajoute un element en entrée
-	 * @param e
-	 * @param quantite
+	 * @param e element 
+	 * @param quantite quantite de l'element
 	 */
 	
 	public void addComposant(Element e, double quantite)
@@ -95,8 +96,8 @@ public class Chaine {
 	
 	/**
 	 * Ajoute un element en sortie
-	 * @param e
-	 * @param quantite
+	 * @param e element
+	 * @param quantite quantite de l'element
 	 */
 	
 	public void addSortie(Element e,double quantite)
@@ -106,7 +107,7 @@ public class Chaine {
 	
 	/**
 	 * Supprime un element en entrée
-	 * @param e
+	 * @param e element à supprimer
 	 */
 	
 	public void removeComposant(Element e)
@@ -116,7 +117,7 @@ public class Chaine {
 	
 	/**
 	 * Supprime un element en sortie
-	 * @param e
+	 * @param e elemnent à supprimer
 	 */
 	
 	

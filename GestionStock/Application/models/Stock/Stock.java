@@ -56,7 +56,7 @@ public class Stock {
      *
      * @param e        l'element à destocker
      * @param quantite la quantite de l'element
-     * @throws NonExistantException
+     * @throws NonExistantException element non existant en stock
      */
 
     public void destocker(Element e, double quantite) throws NonExistantException {
@@ -79,8 +79,7 @@ public class Stock {
     /**
      * benefice du stock
      *
-     * @param l
-     * @return
+     * @return valeur d ela production
      */
     public double getBenefice() {
         double benefice = this.getValeurPrixVente() - this.getListeAchat().getValeur();
@@ -147,7 +146,7 @@ public class Stock {
     }
 
     /**
-     * @param e
+     * @param e element en stock
      * @return la quanité d'une element en stock
      */
 
@@ -165,7 +164,7 @@ public class Stock {
     
     /**
      * 
-     * @param code 
+     * @param code  code d'un element
      * @return un element en stock
      */
 

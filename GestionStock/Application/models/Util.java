@@ -15,9 +15,9 @@ public class Util {
 	
 	/**
 	 * Methode pour ajouter ou metre à jour un element dans une map
-	 * @param map
+	 * @param map où on doit ajouter l'element
 	 * @param e l'element à ajouter dans la map
-	 * @param quantite
+	 * @param quantite la quantite de l'element à ajouter
 	 */
 	public static void addInMap(Map<Element, Double> map, Element e, double quantite)
 	{
@@ -44,9 +44,10 @@ public class Util {
 	
 	/**
 	 * Methode pour destocker
-	 * @param map 
+	 * @param map  la map ù on doit supprimer l'element
 	 * @param e l'element à destocker
-	 * @param quantite
+	 * @param quantite la quantite à destocker
+	 * @throws NonExistantException au cas ou l'elem n'existe pas dans le stock
 	 */
 	
 	public static void removeInMap(Map<Element, Double> map, Element e, double quantite) throws NonExistantException
