@@ -47,16 +47,22 @@ public class StockCtrl implements Initializable {
 
     @FXML
     private TableView<ElementAffichable> listeAchat;
+    
+    @FXML
+    private TableView<ChaineAffichable> listeChaine ;
 
     @FXML
-    private Button btnElement;
+    private Button btnSimulation;
    
     @FXML
     private Text valeurStock;
+    
+    @FXML
+    private TextArea areaBenefice;
 
     @FXML
     private Text valeurListeAchat;
-
+    
     //table view stock
     @FXML
     private TableColumn<ElementAffichable, String> colNomStock;
@@ -84,7 +90,19 @@ public class StockCtrl implements Initializable {
     private TableColumn<ElementAffichable, Double> colPrixVenteLA;
     @FXML
     private TableColumn<ElementAffichable, String> colUniteMesureLA;
-
+    
+  //table view liste chaine
+    @FXML
+    private TableColumn<ChaineAffichable, String> colNomC;
+    @FXML
+    private TableColumn<ChaineAffichable, String> colCodeC;
+    @FXML
+    private TableColumn<ChaineAffichable, TextField> colNiveauActivationC;
+    
+    private ObservableList<ChaineAffichable> chaineAffichableData;
+    private ObservableList<Chaine> chaineData;
+    private Stock stockData ;
+  
 
     public StockCtrl() {
         application = new FactoryApp();
@@ -108,6 +126,9 @@ public class StockCtrl implements Initializable {
     	
     	//charger chaine csv
     	this.chargerChaineCSV();
+    	
+    	//desactive le champ benefice
+    	this.disableAreaBenefice();
 
     }
 
@@ -120,6 +141,7 @@ public class StockCtrl implements Initializable {
 
     private void afficheStock() {
         // On ajoute le stock observable au tableau
+    	stockData = this.application.getStockData() ;
         listeStock.setItems(this.application.getStockAffichable());
 
         //on initialise chaque colonne
@@ -184,14 +206,98 @@ public class StockCtrl implements Initializable {
         valeurListeAchat.setText("Valeur de la liste d'achat : " + this.application.getStockData().getListeAchat().getValeur() + " €");
     }
     
+    private void afficheListeChaine() {
+        //on ajoute la liste d'achat au tableau
+    	chaineData = this.application.getChaineData() ;
+    	chaineAffichableData = this.application.getChaineAffichable() ;
+        listeChaine.setItems(chaineAffichableData);
 
-  
+        //on initialise chaque colonne
+        colNomC = new TableColumn<>("Nom");
+        colNomC.setCellValueFactory(cellData -> cellData.getValue().getNomProperty());
+        
+
+        colCodeC = new TableColumn<>("Code");
+        colCodeC.setCellValueFactory(cellData -> cellData.getValue().getCodeProperty());
+
+        colNiveauActivationC = new TableColumn<>("Niveau d'activation");
+        colNiveauActivationC.setCellValueFactory( new PropertyValueFactory<>("niveauActivation") );
+        
+        //on les ajoute au tableau
+        listeChaine.getColumns().setAll(colNomC,colCodeC,colNiveauActivationC);
+    }
+    
     /**
      * Methode appelée pour effectuer une simulation
-     * @throws ProductionImpossibleException production impossible
+     * Pour chaque niveau d'activation la chaine appelée produit puis on affiche le stock
      */
+    
+    @FXML 
+    private void simulation() {
+    	//recupère le stock et la liste de chaine de production
+    	Stock stock = this.stockData ;
+    	Stock stockSimulation = stock ;
+    	String message = "";
+		double benefice = 0 ;
+		boolean afficheSimulation = false ;
+		System.out.println(this.chaineData);
+    	for(ChaineAffichable chaineAffichable :this.chaineAffichableData) {
+    		
+    		String niveauActivation = chaineAffichable.getNiveauActivation().getText() ;
+    		if( ! niveauActivation.isEmpty() &&  ( Integer.parseInt(niveauActivation) >0 ) ) {
+    			Chaine chaineChoisie = getChaine(this.chaineData,chaineAffichable.getCode()) ;
+    			try {
+					stockSimulation = chaineChoisie.produire( Double.parseDouble(niveauActivation),stockSimulation);
+					benefice += stockSimulation.getBenefice();
+					afficheSimulation = true ;
+				} catch (NumberFormatException | ProductionImpossibleException e) {
+					message += e.getMessage();
+				}
+    		}
+    	}
+    	
+    	System.out.println(stockSimulation);
+        if(!afficheSimulation){
+        	 // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(this.application.getPrimaryStage());
+            alert.setTitle("Données absentes");
+            alert.setHeaderText("Niveau d'activation");
+            alert.setContentText("Veuillez entrer un niveau d'activation.");
 
-    @FXML
+            alert.showAndWait();
+        }
+        
+        if( benefice > 0 ) {
+        	this.application.showSimulationDialog(stockSimulation);
+        }
+        
+        
+        if( ! message.isEmpty() )
+        {
+        	 showAreaBenefice( message ) ;
+        }
+       
+    }
+    
+    
+    
+    private Chaine getChaine(ObservableList<Chaine> list,String code ) {  
+    	Chaine result = null ;
+    	for(Chaine chaine : list) {
+    		if( chaine.getCode().equals(code) ) {
+    			System.out.println(code);
+    			System.out.println(chaine.getCode());
+    			result = chaine ;
+    		}
+    	}
+    	return result ;
+    }
+
+  
+    
+
+   /* @FXML
     private void simulation() throws ProductionImpossibleException {
 
         if (this.dataNotNull()) {
@@ -236,7 +342,7 @@ public class StockCtrl implements Initializable {
 
         return vide;
     }
-
+*/
     /**
      * fonction appelée au chargement des chaines csv
      */
@@ -260,13 +366,10 @@ public class StockCtrl implements Initializable {
             }*/
             
             String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/chaines.csv";
-            ObservableList chaineData = this.application.getChaineData();
-            System.out.println(filePath);
-            Parser.chaineParser(filePath, chaineData, this.application.getStockData());
-            this.afficheListeChaine();
-
-
-        
+            ObservableList<Chaine> chaineData = this.application.getChaineData();
+            ObservableList<Chaine> newChaine = Parser.chaineParser(filePath, chaineData, this.application.getStockData());   
+            this.application.setChaineData(newChaine);
+            this.afficheListeChaine();    
     }
     
     /**
@@ -292,7 +395,8 @@ public class StockCtrl implements Initializable {
         }*/
          String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/elements.csv";
          Stock stock = this.application.getStockData();
-         Parser.elementParser(filePath, stock);
+         Stock newStock= Parser.elementParser(filePath, stock);
+         this.application.setStockDatta(newStock);
 
          this.afficheStock();
 
@@ -300,6 +404,27 @@ public class StockCtrl implements Initializable {
          
 
 
+    }
+    
+    
+    /**
+     * Desactive le textArea 
+     */
+    private void disableAreaBenefice() {
+        areaBenefice.setEditable(false);
+        areaBenefice.setVisible(false);
+
+        //valeurStock.setVisible(false);
+        //valeurListeAchat.setVisible(false);
+    }
+    
+    /**
+     * Active  le textArea 
+     */
+    private void showAreaBenefice( String message ) {
+        areaBenefice.setVisible(true) ;
+        areaBenefice.setText(message) ;
+        
     }
     
     /**
@@ -336,6 +461,8 @@ public class StockCtrl implements Initializable {
 
         alert.showAndWait();
     }
+    
+    
 
 
 }

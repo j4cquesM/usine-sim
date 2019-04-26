@@ -3,6 +3,8 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
+
 import parser.CSVReader;
 
 
@@ -20,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Chaine.Chaine;
+import models.Chaine.ChaineAffichable;
 import models.Element.*;
 import models.Stock.ListeAchat;
 import models.Stock.Stock;
@@ -151,6 +154,18 @@ public class FactoryApp extends Application {
 		return chaineData;
 	}
 	
+	public ObservableList<ChaineAffichable> getChaineAffichable(){
+		ObservableList<ChaineAffichable> chaineAffichable = FXCollections.observableArrayList();
+		
+		for(Chaine key :this.chaineData ) {
+			
+			ChaineAffichable nouv = new ChaineAffichable(key.getNom(),key.getCode(),"") ;
+			
+			chaineAffichable.add(nouv) ;
+		}
+		return chaineAffichable;
+	}
+	
 	public Stage getPrimaryStage() {
 	     return primaryStage;
 	}
@@ -158,6 +173,10 @@ public class FactoryApp extends Application {
 	public void setStockDatta(Stock stock) {
 		this.stockData = stock;
 	}
-
+	
+	public void setChaineData(ObservableList<Chaine> chaineData) {
+		this.chaineData = chaineData;
+	}
+	
 
 }

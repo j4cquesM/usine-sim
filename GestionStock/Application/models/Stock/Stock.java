@@ -123,7 +123,7 @@ public class Stock {
     }
 
     public double getValeur() {
-        return this.getValeurPrixVente() - this.getValeurPrixAchat();
+        return this.getValeurPrixVente() ;
     }
 
     public double getQuantiteMinAchat(Element e) {
