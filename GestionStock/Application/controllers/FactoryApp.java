@@ -37,36 +37,12 @@ public class FactoryApp extends Application {
 		super();
 		this.stockData = new Stock();
 		this.chaineData = FXCollections.observableArrayList();
-/*
-		Element e1 = new Element("element 1","element 1","kg",0,10);
-		Element e2 = new Element("element 2","element 2","kg",1,1);
-
-		Chaine c1 = new Chaine("chaine1","chaine1");
-		c1.addComposant(e2, 1);
-		c1.addSortie(e1, 2);
-
-		Chaine c2 = new Chaine("chaine2","chaine2");
-		c2.addComposant(e1,0.5 );
-		c2.addSortie(e2, 1);
-
-		chaineData.add(c1);
-		chaineData.add(c2);
-
-		this.stockData.stocker(e1, 3);
-		this.stockData.stocker(e2, 3);
-		this.stockData.acheter(e2, (double) 1);*/
 	 }
-
-
-
-
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 		
-	
-
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -79,7 +55,7 @@ public class FactoryApp extends Application {
 	public void showIndex() {
 		 
 		try {
-			
+					
 			//chargement du fichier fxml
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(FactoryApp.class.getResource("/views/index.fxml"));

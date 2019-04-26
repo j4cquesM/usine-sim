@@ -49,22 +49,8 @@ public class StockCtrl implements Initializable {
     private TableView<ElementAffichable> listeAchat;
 
     @FXML
-    private ComboBox<Chaine> listeChaine;
-
-    @FXML
-    private Button btnSimuler;
-
-    @FXML
-    private Button btnChaine;
-
-    @FXML
     private Button btnElement;
-    @FXML
-    private TextField fieldNiveauActivation;
-
-    @FXML
-    private TextArea areaBenefice;
-
+   
     @FXML
     private Text valeurStock;
 
@@ -116,11 +102,12 @@ public class StockCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Auto-generated method stub
-
-
-        this.afficheNiveauActivation();
-
-        this.disableAreaBenefice();
+    	
+    	//chargement des element csv
+    	this.chargerElementCSV() ;
+    	
+    	//charger chaine csv
+    	this.chargerChaineCSV();
 
     }
 
@@ -198,46 +185,7 @@ public class StockCtrl implements Initializable {
     }
     
 
-    /**
-     * Affiche la liste des chaines
-     */
-
-
-    private void afficheListeChaine() {
-        listeChaine.setPromptText("(Sélectionnez une chaine");
-        listeChaine.setItems(this.application.getChaineData());
-    }
-    
-
-    /**
-     * Affiche le niveau d'activation
-     */
-
-    private void afficheNiveauActivation() {
-
-        fieldNiveauActivation.setPromptText("niveau d'activation ..");
-
-        //force le champ à etre numerique
-
-        fieldNiveauActivation.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    fieldNiveauActivation.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
-
-    private void disableAreaBenefice() {
-        areaBenefice.setEditable(false);
-        areaBenefice.setVisible(false);
-
-        //valeurStock.setVisible(false);
-        //valeurListeAchat.setVisible(false);
-    }
-
+  
     /**
      * Methode appelée pour effectuer une simulation
      * @throws ProductionImpossibleException production impossible
@@ -266,10 +214,6 @@ public class StockCtrl implements Initializable {
                 message += e.toString();
             }
 
-            //on affiche les benefices
-            areaBenefice.setVisible(true);
-            areaBenefice.setText(message);
-
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -296,9 +240,8 @@ public class StockCtrl implements Initializable {
     /**
      * fonction appelée au chargement des chaines csv
      */
-    @FXML
     private void chargerChaineCSV() {
-        if (alertChargement()) {
+       /* if (alertChargement()) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choisir un fichier");
             File file = fileChooser.showOpenDialog(this.application.getPrimaryStage());
@@ -308,22 +251,30 @@ public class StockCtrl implements Initializable {
                 this.isElementCharge = true;
                 String filePath = file.getAbsolutePath();
                 ObservableList chaineData = this.application.getChaineData();
+                System.out.println(filePath);
                 Parser.chaineParser(filePath, chaineData, this.application.getStockData());
                 this.afficheListeChaine();
 
             }
+            
+            }*/
+            
+            String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/chaines.csv";
+            ObservableList chaineData = this.application.getChaineData();
+            System.out.println(filePath);
+            Parser.chaineParser(filePath, chaineData, this.application.getStockData());
+            this.afficheListeChaine();
 
 
-        }
+        
     }
     
     /**
      * fonction appelée au chargement des elements csv
      */
 
-    @FXML
     private void chargerElementCSV() {
-        FileChooser fileChooser = new FileChooser();
+        /*FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier");
         File file = fileChooser.showOpenDialog(this.application.getPrimaryStage());
         if (file == null) {
@@ -331,13 +282,22 @@ public class StockCtrl implements Initializable {
         } else {
             this.isElementCharge = true;
             String filePath = file.getAbsolutePath();
+            System.out.println(filePath);
             Stock stock = this.application.getStockData();
             Parser.elementParser(filePath, stock);
 
             this.afficheStock();
 
             this.afficheListeAchat();
-        }
+        }*/
+         String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/elements.csv";
+         Stock stock = this.application.getStockData();
+         Parser.elementParser(filePath, stock);
+
+         this.afficheStock();
+
+         this.afficheListeAchat();
+         
 
 
     }
