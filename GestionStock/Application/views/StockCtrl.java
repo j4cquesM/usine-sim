@@ -480,6 +480,10 @@ public class StockCtrl implements Initializable {
     	
     	//generer la arrayList de personnel
     	//set les personnels  dans le factory app
+    	
+    	
+    	
+    	
     	this.afficheListePersonnel() ;
     }
     

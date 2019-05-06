@@ -101,10 +101,6 @@ public class TestChaine {
 			ss = c.produire(1, s) ;
 			System.out.println(ss.toString());
 			
-			for(Chaine ca:a)
-			{
-				pp = ca.gestionPersonnel(personnelData,2.0);
-			}
 			
 		}
 		catch(Exception e )

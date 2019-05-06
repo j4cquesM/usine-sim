@@ -90,7 +90,9 @@ public class SimulationCtrl implements Initializable {
     @FXML
     private TableColumn<Personnel, Double> colTempsTravailRealiseP  ;
     @FXML
-    private Button btnExport;
+    private Button btnExportListe;
+    @FXML
+    private Button btnExportPersonnel;
 
     public SimulationCtrl() {
         this.application = new FactoryApp();
@@ -249,7 +251,7 @@ public class SimulationCtrl implements Initializable {
    
 
     @FXML
-    private void exporter() {
+    private void exporterListe() {
         //pour avoir le stock tu fais this.getStockData()
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
@@ -282,6 +284,12 @@ public class SimulationCtrl implements Initializable {
         
     }
 
+    @FXML
+    private void exporterPersonnel() {
+        //pour avoir les personnels tu fais this.personnelData 
+   
+        
+    }
 
     private void showIsEmpty() {
         Alert alert = new Alert(AlertType.WARNING);
