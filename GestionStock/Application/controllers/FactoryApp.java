@@ -22,8 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Chaine.Chaine;
-import models.Chaine.ChaineAffichable;
 import models.Element.*;
+import models.Personnel.Personnel;
 import models.Stock.ListeAchat;
 import models.Stock.Stock;
 import views.SimulationCtrl;
@@ -34,12 +34,23 @@ public class FactoryApp extends Application {
 	 private Stage primaryStage;
 	 private Stock stockData;
 	 private ObservableList<Chaine> chaineData;
+	 private ObservableList<Personnel> personnelData ;
 	 
 	
 	public FactoryApp() {
 		super();
 		this.stockData = new Stock();
 		this.chaineData = FXCollections.observableArrayList();
+		this.personnelData = FXCollections.observableArrayList(); 
+		
+		Personnel p1 = new Personnel("001","Jane","Doe",false,12) ;
+		Personnel p2 = new Personnel("002","Jana","Doa",true,15) ;
+		Personnel p3 = new Personnel("003","Jani","Doi",true,18) ;
+		Personnel p4 = new Personnel("004","Jano","Doo",false,10) ;
+		
+		personnelData.addAll(p1,p2,p3,p4) ;
+		
+		
 	 }
 
 	public static void main(String[] args) {
@@ -85,7 +96,7 @@ public class FactoryApp extends Application {
 
 	}
 	
-	public void showSimulationDialog(Stock stock) {
+	public void showSimulationDialog(Stock stock, ObservableList<Personnel> listePersonnel ) {
 	    try {
 	        // charge le fichier fxml
 	        FXMLLoader loader = new FXMLLoader();
@@ -105,6 +116,7 @@ public class FactoryApp extends Application {
 	        SimulationCtrl controller = loader.getController();
 	        controller.setFactoryApp(this);
 	        controller.setStockData(stock);
+	        controller.setPersonnelData(listePersonnel);
 
 	        // Show the dialog and wait until the user closes it
 	        //dialogStage.showAndWait();
@@ -125,7 +137,7 @@ public class FactoryApp extends Application {
 		for(Element key : this.getStockData().getStock().keySet()) {
 			
 			ElementAffichable nouv = new ElementAffichable(key.getNom(),key.getCodeUnique(),key.getUniteMesure(),
-					key.getPrixAchat(),key.getPrixVente(),this.getStockData().getQuantite(key));
+					key.getPrixAchat(),key.getPrixVente(),key.getDemande(),this.getStockData().getQuantite(key));
 			
 			stockAffichable.add(nouv);
 		}
@@ -138,11 +150,15 @@ public class FactoryApp extends Application {
 		for(Element key : this.stockData.getListeAchat().getListeAchat().keySet()) {
 			
 			ElementAffichable nouv = new ElementAffichable(key.getNom(),key.getCodeUnique(),key.getUniteMesure(),
-					key.getPrixAchat(),key.getPrixVente(),this.stockData.getListeAchat().getQuantite(key));
+					key.getPrixAchat(),key.getPrixVente(),key.getDemande(),this.stockData.getListeAchat().getQuantite(key));
 			
 			achatAffichable.add(nouv);
 		}
 		return achatAffichable;
+	}
+	
+	public ObservableList<Personnel> getPersonnelData() {
+		return this.personnelData;
 	}
 	
 	public Stock getStockData() {
@@ -154,17 +170,6 @@ public class FactoryApp extends Application {
 		return chaineData;
 	}
 	
-	public ObservableList<ChaineAffichable> getChaineAffichable(){
-		ObservableList<ChaineAffichable> chaineAffichable = FXCollections.observableArrayList();
-		
-		for(Chaine key :this.chaineData ) {
-			
-			ChaineAffichable nouv = new ChaineAffichable(key.getNom(),key.getCode(),"") ;
-			
-			chaineAffichable.add(nouv) ;
-		}
-		return chaineAffichable;
-	}
 	
 	public Stage getPrimaryStage() {
 	     return primaryStage;

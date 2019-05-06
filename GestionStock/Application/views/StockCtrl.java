@@ -29,6 +29,8 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import models.Stock.*;
 import models.Element.*;
+import models.Personnel.Personnel;
+import models.Util;
 import models.Chaine.*;
 import parser.Parser;
 
@@ -49,7 +51,10 @@ public class StockCtrl implements Initializable {
     private TableView<ElementAffichable> listeAchat;
     
     @FXML
-    private TableView<ChaineAffichable> listeChaine ;
+    private TableView<Personnel> listePersonnel;
+    
+    @FXML
+    private TableView<Chaine> listeChaine ;
 
     @FXML
     private Button btnSimulation;
@@ -59,6 +64,9 @@ public class StockCtrl implements Initializable {
     
     @FXML
     private TextArea areaBenefice;
+    
+    @FXML
+    private TextArea areaErreur;
 
     @FXML
     private Text valeurListeAchat;
@@ -76,6 +84,8 @@ public class StockCtrl implements Initializable {
     private TableColumn<ElementAffichable, Double> colPrixVenteStock;
     @FXML
     private TableColumn<ElementAffichable, String> colUniteMesureStock;
+    @FXML
+    private TableColumn<ElementAffichable, Double> colDemandeStock;
 
     //table view liste achat
     @FXML
@@ -93,14 +103,34 @@ public class StockCtrl implements Initializable {
     
   //table view liste chaine
     @FXML
-    private TableColumn<ChaineAffichable, String> colNomC;
+    private TableColumn<Chaine, String> colNomC;
     @FXML
-    private TableColumn<ChaineAffichable, String> colCodeC;
+    private TableColumn<Chaine, String> colCodeC;
     @FXML
-    private TableColumn<ChaineAffichable, TextField> colNiveauActivationC;
+    private TableColumn<Chaine, TextField> colNiveauActivationC;
+    @FXML
+    private TableColumn<Chaine, Double> colTempsC ;
+    @FXML
+    private TableColumn<Chaine, Double> colPersoQualifieC ;
+    @FXML
+    private TableColumn<Chaine, Double> colPersoNonQualifie ;
+   
+   // table view liste personne 
+    @FXML
+    private TableColumn<Personnel, String> colCodeP;
+    @FXML
+    private TableColumn<Personnel, String> colNomP;
+    @FXML
+    private TableColumn<Personnel, String> colPrenomP;
+    @FXML
+    private TableColumn<Personnel, String> colQualificationP ;
+    @FXML
+    private TableColumn<Personnel, Double> colTempsTravailP  ;
+    @FXML
+    private TableColumn<Personnel, Double> colTempsTravailRealiseP  ;
     
-    private ObservableList<ChaineAffichable> chaineAffichableData;
-    private ObservableList<Chaine> chaineData;
+    private ObservableList<Chaine> chaineData ;
+    private ObservableList<Personnel> personnelData ;
     private Stock stockData ;
   
 
@@ -128,7 +158,9 @@ public class StockCtrl implements Initializable {
     	this.chargerChaineCSV();
     	
     	//desactive le champ benefice
-    	this.disableAreaBenefice();
+    	this.disableAreas();
+    	
+    	this.afficheListePersonnel() ;
 
     }
 
@@ -162,9 +194,12 @@ public class StockCtrl implements Initializable {
 
         colQuantiteStock = new TableColumn<>("Quantite");
         colQuantiteStock.setCellValueFactory(cellData -> cellData.getValue().getQuantiteProperty().asObject());
+        
+        colDemandeStock = new TableColumn<>("Demande");
+        colDemandeStock.setCellValueFactory(cellData -> cellData.getValue().getDemandeProperty().asObject());
 
         //on les ajoute au tableau
-        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock);
+        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock,colDemandeStock);
 
         //on affiche la valeur du stock
         valeurStock.setText("Valeur du stock : " + this.application.getStockData().getValeur() + " €");
@@ -206,11 +241,13 @@ public class StockCtrl implements Initializable {
         valeurListeAchat.setText("Valeur de la liste d'achat : " + this.application.getStockData().getListeAchat().getValeur() + " €");
     }
     
+    /**
+     * Affiche les chaines de production
+     */
     private void afficheListeChaine() {
         //on ajoute la liste d'achat au tableau
     	chaineData = this.application.getChaineData() ;
-    	chaineAffichableData = this.application.getChaineAffichable() ;
-        listeChaine.setItems(chaineAffichableData);
+        listeChaine.setItems(chaineData);
 
         //on initialise chaque colonne
         colNomC = new TableColumn<>("Nom");
@@ -223,8 +260,52 @@ public class StockCtrl implements Initializable {
         colNiveauActivationC = new TableColumn<>("Niveau d'activation");
         colNiveauActivationC.setCellValueFactory( new PropertyValueFactory<>("niveauActivation") );
         
+        colTempsC = new TableColumn<>("Temps");
+        colTempsC.setCellValueFactory(cellData -> cellData.getValue().getTempsProperty().asObject());
+        
+        colPersoQualifieC = new TableColumn<>("Personnel qualifié");
+        colPersoQualifieC.setCellValueFactory(cellData -> cellData.getValue().getPersonnelQualifieProperty().asObject());
+        
+        colPersoNonQualifie = new TableColumn<>("Personnel non qualifié");
+        colPersoNonQualifie.setCellValueFactory(cellData -> cellData.getValue().getPersonnelNonQualifieProperty().asObject()) ;
+        
         //on les ajoute au tableau
-        listeChaine.getColumns().setAll(colNomC,colCodeC,colNiveauActivationC);
+        listeChaine.getColumns().setAll(colNomC,colCodeC,colNiveauActivationC,colTempsC,colPersoQualifieC,colPersoNonQualifie);
+    }
+    
+    /**
+     * Affiche la liste des personnel
+     */
+    
+    private void afficheListePersonnel() {
+        //on ajoute la liste d'achat au tableau
+    	personnelData = this.application.getPersonnelData()  ;
+        listePersonnel.setItems(personnelData);
+
+        //on initialise chaque colonne
+        colCodeP = new TableColumn<>("Code");
+        colCodeP.setCellValueFactory(cellData -> cellData.getValue().getCodeProperty());
+        
+        colNomP = new TableColumn<>("Nom");
+        colNomP.setCellValueFactory(cellData -> cellData.getValue().getNomProperty());
+        
+
+        colPrenomP = new TableColumn<>("Prenom");
+        colPrenomP.setCellValueFactory(cellData -> cellData.getValue().getPrenomProperty());
+
+        colQualificationP = new TableColumn<>("Qualification");
+        colQualificationP.setCellValueFactory( cellData -> cellData.getValue().getQualificationPropertyStr());
+        
+        colTempsTravailP = new TableColumn<>("Heures prévues");
+        colTempsTravailP.setCellValueFactory( cellData -> cellData.getValue().getTotalTempsTravailProperty().asObject() );
+        
+        colTempsTravailRealiseP = new TableColumn<>("Heures réalisés");
+        colTempsTravailRealiseP.setCellValueFactory(cellData -> cellData.getValue().getTempsTravailleProperty().asObject() );
+        
+        
+        
+        //on les ajoute au tableau
+        listePersonnel.getColumns().setAll(colCodeP,colPrenomP,colNomP,colQualificationP,colTempsTravailP,colTempsTravailRealiseP);
     }
     
     /**
@@ -237,21 +318,22 @@ public class StockCtrl implements Initializable {
     	//recupère le stock et la liste de chaine de production
     	Stock stock = this.stockData ;
     	Stock stockSimulation = stock ;
-    	String message = "";
+    	ArrayList<Personnel> personnelSimulation = Util.retObservableList(personnelData) ;
+    	String messageErreur = "";
 		double benefice = 0 ;
 		boolean afficheSimulation = false ;
 		System.out.println(this.chaineData);
-    	for(ChaineAffichable chaineAffichable :this.chaineAffichableData) {
+    	for(Chaine chaineAffichable :this.chaineData) {
     		
     		String niveauActivation = chaineAffichable.getNiveauActivation().getText() ;
     		if( ! niveauActivation.isEmpty() &&  ( Integer.parseInt(niveauActivation) >0 ) ) {
-    			Chaine chaineChoisie = getChaine(this.chaineData,chaineAffichable.getCode()) ;
+    			afficheSimulation = true ;
     			try {
-					stockSimulation = chaineChoisie.produire( Double.parseDouble(niveauActivation),stockSimulation);
+					stockSimulation = chaineAffichable.produire( Double.parseDouble(niveauActivation),stockSimulation);
+					personnelSimulation = chaineAffichable.gestionPersonnel(personnelSimulation) ;
 					benefice += stockSimulation.getBenefice();
-					afficheSimulation = true ;
 				} catch (NumberFormatException | ProductionImpossibleException e) {
-					message += e.getMessage();
+					messageErreur += e.getMessage();
 				}
     		}
     	}
@@ -269,32 +351,18 @@ public class StockCtrl implements Initializable {
         }
         
         if( benefice > 0 ) {
-        	this.application.showSimulationDialog(stockSimulation);
+        	ObservableList<Personnel> personnelDataSimulation = FXCollections.observableArrayList(personnelSimulation); 
+        	this.application.showSimulationDialog(stockSimulation,personnelDataSimulation );
+        	String messageBenefice = "Vous avez " + benefice + " euros de bénéfice." ;
+        	showAreaBenefice( messageBenefice ) ;
         }
         
-        
-        if( ! message.isEmpty() )
+        if( ! messageErreur.isEmpty() )
         {
-        	 showAreaBenefice( message ) ;
+        	 showAreaBenefice( messageErreur ) ;
         }
        
     }
-    
-    
-    
-    private Chaine getChaine(ObservableList<Chaine> list,String code ) {  
-    	Chaine result = null ;
-    	for(Chaine chaine : list) {
-    		if( chaine.getCode().equals(code) ) {
-    			System.out.println(code);
-    			System.out.println(chaine.getCode());
-    			result = chaine ;
-    		}
-    	}
-    	return result ;
-    }
-
-  
     
 
    /* @FXML
@@ -410,21 +478,31 @@ public class StockCtrl implements Initializable {
     /**
      * Desactive le textArea 
      */
-    private void disableAreaBenefice() {
+    private void disableAreas() {
         areaBenefice.setEditable(false);
         areaBenefice.setVisible(false);
-
+        areaErreur.setEditable(false);
+        areaErreur.setVisible(false);
         //valeurStock.setVisible(false);
         //valeurListeAchat.setVisible(false);
     }
     
     /**
-     * Active  le textArea 
+     * Active le text area benefice
+     * @param message messaqge à afficher
      */
     private void showAreaBenefice( String message ) {
         areaBenefice.setVisible(true) ;
-        areaBenefice.setText(message) ;
-        
+        areaBenefice.setText(message) ;   
+    }
+    
+    /**
+     * Active le text are erreur
+     * @param message message à afficher
+     */
+    private void showAreaErreur( String message ) {
+        areaErreur.setVisible(true) ;
+        areaErreur.setText(message) ;   
     }
     
     /**

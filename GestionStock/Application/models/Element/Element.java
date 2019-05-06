@@ -16,22 +16,24 @@ public class Element {
 	private StringProperty uniteMesure;
 	private DoubleProperty prixAchat;
 	private DoubleProperty prixVente;
+	private DoubleProperty demande ;
 	
 	
 
 
-	public Element(String nom, String codeUnique, String uniteMesure, double prixAchat, double prixVente) {
+	public Element(String nom, String codeUnique, String uniteMesure, double prixAchat, double prixVente, double demande) {
 		this.nom = new SimpleStringProperty(nom);
 		this.codeUnique = new SimpleStringProperty(codeUnique);
 		this.uniteMesure = new SimpleStringProperty(uniteMesure);
 		this.prixAchat = new SimpleDoubleProperty(prixAchat);
 		this.prixVente = new SimpleDoubleProperty(prixVente);
+		this.demande = new SimpleDoubleProperty(demande);
 	}
 	
 	
 	public Element(Element e)
 	{
-		this(e.getNom(),e.getCodeUnique(),e.getUniteMesure(),e.getPrixAchat(),e.getPrixVente());
+		this(e.getNom(),e.getCodeUnique(),e.getUniteMesure(),e.getPrixAchat(),e.getPrixVente(),e.getDemande());
 	}
 
 
@@ -77,7 +79,13 @@ public class Element {
 	}
 	
 	
+	public double getDemande() {
+		return this.demande.get();
+	}
 	
+	public DoubleProperty getDemandeProperty() {
+		return this.demande ;
+	}
 
 	public boolean isMatierePremiere() {
 		

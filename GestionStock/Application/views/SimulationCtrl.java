@@ -1,12 +1,12 @@
 package views;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import controllers.FactoryApp;
 import javafx.collections.FXCollections;
@@ -14,20 +14,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import models.Chaine.Chaine;
 import models.Element.Element;
 import models.Element.ElementAffichable;
-import models.Stock.ListeAchat;
+import models.Personnel.Personnel;
 import models.Stock.Stock;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import serializer.JSONSerializer;
 import serializer.JSONTemplate;
@@ -36,11 +31,15 @@ public class SimulationCtrl implements Initializable {
 
     private FactoryApp application;
     private Stock stockData;
+    private ObservableList<Personnel> personnelData ;
+   // private ArrayList<Personnel> personnelData ;
 
     @FXML
     private TableView<ElementAffichable> listeStock;
     @FXML
     private TableView<ElementAffichable> listeAchat;
+    @FXML
+    private TableView<Personnel> listePersonnel;
     @FXML
     private Text valeurStock;
     @FXML
@@ -59,6 +58,9 @@ public class SimulationCtrl implements Initializable {
     private TableColumn<ElementAffichable, Double> colPrixVenteStock;
     @FXML
     private TableColumn<ElementAffichable, String> colUniteMesureStock;
+    @FXML
+    private TableColumn<ElementAffichable, String> colDemandeStock;
+
 
     //table view liste achat
     @FXML
@@ -73,12 +75,28 @@ public class SimulationCtrl implements Initializable {
     private TableColumn<ElementAffichable, Double> colPrixVenteLA;
     @FXML
     private TableColumn<ElementAffichable, String> colUniteMesureLA;
+    
+    // table view liste personne 
+    @FXML
+    private TableColumn<Personnel, String> colCodeP;
+    @FXML
+    private TableColumn<Personnel, String> colNomP;
+    @FXML
+    private TableColumn<Personnel, String> colPrenomP;
+    @FXML
+    private TableColumn<Personnel, String> colQualificationP ;
+    @FXML
+    private TableColumn<Personnel, Double> colTempsTravailP  ;
+    @FXML
+    private TableColumn<Personnel, Double> colTempsTravailRealiseP  ;
     @FXML
     private Button btnExport;
 
     public SimulationCtrl() {
         this.application = new FactoryApp();
         this.stockData = new Stock();
+       this.personnelData = FXCollections.observableArrayList();
+        //this.personnelData = new ArrayList<>();
     }
 
     public void setFactoryApp(FactoryApp applicationPrincipale) {
@@ -101,6 +119,13 @@ public class SimulationCtrl implements Initializable {
         this.stockData = stock;
         this.afficheListeAchat();
         this.afficheStock();
+    }
+    
+    public void setPersonnelData(ObservableList<Personnel> p)
+    {
+    	this.personnelData = p ;
+    	this.afficheListePersonnel();
+    	
     }
 
 
@@ -136,9 +161,12 @@ public class SimulationCtrl implements Initializable {
 
         colQuantiteStock = new TableColumn<>("Quantite");
         colQuantiteStock.setCellValueFactory(cellData -> cellData.getValue().getQuantiteProperty().asObject());
+        
+        colDemandeStock = new TableColumn<>("Demande");
+        colDemandeStock.setCellValueFactory(cellData -> cellData.getValue().getSatisfaction());
 
         //on les ajoute au tableau
-        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock);
+        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock,colDemandeStock);
 
         //on affiche la valeur du stock
         valeurStock.setText("Valeur du stock : " + this.getStockData().getValeur() + " €");
@@ -177,6 +205,40 @@ public class SimulationCtrl implements Initializable {
 
         //on affiche la valeur de la liste de la liste d'achat
         valeurListeAchat.setText("Valeur de la liste d'achat : " + this.getStockData().getListeAchat().getValeur() + " €");
+    }
+    
+    /**
+     * Affiche la liste des personnel
+     */
+    
+    private void afficheListePersonnel() {
+        //on ajoute la liste d'achat au tableau
+        listePersonnel.setItems(this.personnelData);
+
+        //on initialise chaque colonne
+        colCodeP = new TableColumn<>("Code");
+        colCodeP.setCellValueFactory(cellData -> cellData.getValue().getCodeProperty());
+        
+        colNomP = new TableColumn<>("Nom");
+        colNomP.setCellValueFactory(cellData -> cellData.getValue().getNomProperty());
+        
+
+        colPrenomP = new TableColumn<>("Prenom");
+        colPrenomP.setCellValueFactory(cellData -> cellData.getValue().getPrenomProperty());
+
+        colQualificationP = new TableColumn<>("Qualification");
+        colQualificationP.setCellValueFactory( cellData -> cellData.getValue().getQualificationPropertyStr());
+        
+        colTempsTravailP = new TableColumn<>("Heures prévues");
+        colTempsTravailP.setCellValueFactory( cellData -> cellData.getValue().getTotalTempsTravailProperty().asObject() );
+        
+        colTempsTravailRealiseP = new TableColumn<>("Heures réalisés");
+        colTempsTravailRealiseP.setCellValueFactory(cellData -> cellData.getValue().getTempsTravailleProperty().asObject() );
+        
+        
+        
+        //on les ajoute au tableau
+        listePersonnel.getColumns().setAll(colCodeP,colPrenomP,colNomP,colQualificationP,colTempsTravailP,colTempsTravailRealiseP);
     }
     
     
@@ -238,7 +300,7 @@ public class SimulationCtrl implements Initializable {
         for (Element key : this.stockData.getStock().keySet()) {
 
             ElementAffichable nouv = new ElementAffichable(key.getNom(), key.getCodeUnique(), key.getUniteMesure(),
-                    key.getPrixAchat(), key.getPrixVente(), this.getStockData().getQuantite(key));
+                    key.getPrixAchat(), key.getPrixVente(), key.getDemande(),this.getStockData().getQuantite(key));
 
             stockAffichable.add(nouv);
         }
@@ -252,7 +314,7 @@ public class SimulationCtrl implements Initializable {
         for (Element key : this.stockData.getListeAchat().getListeAchat().keySet()) {
 
             ElementAffichable nouv = new ElementAffichable(key.getNom(), key.getCodeUnique(), key.getUniteMesure(),
-                    key.getPrixAchat(), key.getPrixVente(), this.getStockData().getListeAchat().getQuantite(key));
+                    key.getPrixAchat(), key.getPrixVente(),key.getDemande(), this.getStockData().getListeAchat().getQuantite(key));
 
             achatAffichable.add(nouv);
         }

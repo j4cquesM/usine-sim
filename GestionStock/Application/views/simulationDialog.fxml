@@ -1,80 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="677.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SimulationCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="761.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SimulationCtrl">
    <children>
-      <SplitPane dividerPositions="0.9" layoutX="178.0" layoutY="46.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background" stylesheets="@css.css">
-               <children>
-                  <SplitPane dividerPositions="0.5" prefHeight="334.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
-                           <children>
-                              <TableView fx:id="listeStock" layoutX="14.0" layoutY="14.0" prefHeight="402.0" prefWidth="364.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-                                 <columns>
-                                    <TableColumn fx:id="colNomStock" prefWidth="75.0" text="Nom" />
-                                    <TableColumn fx:id="colCodeStock" prefWidth="75.0" text="Code" />
-                                    <TableColumn fx:id="colUniteMesureStock" prefWidth="75.0" text="Unité de mesure" />
-                                    <TableColumn fx:id="colPrixAchatStock" prefWidth="75.0" text="Prix Achat" />
-                                    <TableColumn fx:id="colPrixVenteStock" prefWidth="75.0" text="Prix Vente" />
-                                    <TableColumn fx:id="colQuantiteStock" prefWidth="75.0" text="Quantite" />
-                                 </columns>
-                              </TableView>
-                              <Text layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des stocks" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Text>
-                            <AnchorPane layoutX="-61.0" layoutY="307.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                              <Text fx:id="valeurStock" layoutX="68.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="187.7294921875" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="330.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
-                           <children>
-                              <Text layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste d'achat" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="13.0">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Text>
-                              <TableView fx:id="listeAchat" prefHeight="402.0" prefWidth="362.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-                                 <columns>
-                                    <TableColumn fx:id="ColNomLA" prefWidth="75.0" text="Nom" />
-                                    <TableColumn fx:id="ColCodeLA" prefWidth="75.0" text="Code" />
-                                    <TableColumn fx:id="colUniteMesureLA" prefWidth="75.0" text="Unité de mesure" />
-                                    <TableColumn fx:id="ColPrixAchatLA" prefWidth="75.0" text="Prix Achat" />
-                                    <TableColumn fx:id="ColPrixVenteLA" prefWidth="75.0" text="Prix Vente" />
-                                    <TableColumn fx:id="ColQuantiteLA" prefWidth="75.0" text="Quantite" />
-                                 </columns>
-                              </TableView>
-                              <Text fx:id="valeurListeAchat" layoutX="41.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="228.7294921875" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="23.2705078125" AnchorPane.topAnchor="330.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
-               <children>
-                  <Button fx:id="btnExport" mnemonicParsing="false" onAction="#exporter" text="Exporter en JSON" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="10.0" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+      <TabPane prefHeight="592.0" prefWidth="761.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Stock">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background" stylesheets="@css.css">
+                     <children>
+                        <SplitPane dividerPositions="0.5" prefHeight="334.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
+                                 <children>
+                                    <TableView fx:id="listeStock" layoutX="14.0" layoutY="14.0" prefHeight="402.0" prefWidth="364.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                                       <columns>
+                                          <TableColumn fx:id="colNomStock" prefWidth="75.0" text="Nom" />
+                                          <TableColumn fx:id="colCodeStock" prefWidth="75.0" text="Code" />
+                                          <TableColumn fx:id="colUniteMesureStock" prefWidth="75.0" text="Unité de mesure" />
+                                          <TableColumn fx:id="colPrixAchatStock" prefWidth="75.0" text="Prix Achat" />
+                                          <TableColumn fx:id="colPrixVenteStock" prefWidth="75.0" text="Prix Vente" />
+                                          <TableColumn fx:id="colQuantiteStock" prefWidth="75.0" text="Quantite" />
+                                       </columns>
+                                    </TableView>
+                                    <Text layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des stocks" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <AnchorPane layoutX="-61.0" layoutY="307.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                    <Text fx:id="valeurStock" layoutX="78.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="187.7294921875" AnchorPane.bottomAnchor="15.169921875" AnchorPane.leftAnchor="78.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
+                                 <children>
+                                    <Text layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste d'achat" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="13.0">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TableView fx:id="listeAchat" prefHeight="402.0" prefWidth="362.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                       <columns>
+                                          <TableColumn fx:id="ColNomLA" prefWidth="75.0" text="Nom" />
+                                          <TableColumn fx:id="ColCodeLA" prefWidth="75.0" text="Code" />
+                                          <TableColumn fx:id="colUniteMesureLA" prefWidth="75.0" text="Unité de mesure" />
+                                          <TableColumn fx:id="ColPrixAchatLA" prefWidth="75.0" text="Prix Achat" />
+                                          <TableColumn fx:id="ColPrixVenteLA" prefWidth="75.0" text="Prix Vente" />
+                                          <TableColumn fx:id="ColQuantiteLA" prefWidth="75.0" text="Quantite" />
+                                       </columns>
+                                    </TableView>
+                                    <Text fx:id="valeurListeAchat" layoutX="58.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="228.7294921875" AnchorPane.bottomAnchor="15.169921875" AnchorPane.leftAnchor="78.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="Personnel">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
+                     <children>
+                        <TableView fx:id="listePersonnel" layoutX="115.0" layoutY="40.0" prefHeight="461.0" prefWidth="507.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="50.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="227.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des personnels" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="14.5791015625">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

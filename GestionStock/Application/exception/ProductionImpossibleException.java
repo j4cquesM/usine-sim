@@ -13,9 +13,9 @@ public class ProductionImpossibleException extends Exception{
 	
 	
 	
-	public ProductionImpossibleException(Element e)
+	public ProductionImpossibleException(String message)
 	{
-		super("Impossible de lancer la production car "+e.getNom()+" a un stock négatif" );
+		super(message);
 		
 	}
 	

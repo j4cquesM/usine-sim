@@ -177,7 +177,7 @@ public class Stock {
                 return key;
             }
         }
-        return new Element("Na", "Na", "Na", 0, 0);
+        return new Element("Na", "Na", "Na", 0, 0,0);
     }
 
 

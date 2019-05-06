@@ -40,7 +40,7 @@
                                                 <Font name="System Bold" size="16.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="valeurStock" fill="#192e40" layoutX="141.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="332.7294921875">
+                                          <Text fx:id="valeurStock" fill="#192e40" layoutX="83.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="332.7294921875" AnchorPane.bottomAnchor="44.541014671325684" AnchorPane.leftAnchor="83.0">
                                              <font>
                                                 <Font name="System Bold Italic" size="15.0" />
                                              </font>
@@ -64,7 +64,7 @@
                                                 <TableColumn fx:id="ColQuantiteLA" prefWidth="75.0" text="Quantite" />
                                              </columns>
                                           </TableView>
-                                          <Text fx:id="valeurListeAchat" fill="#192e40" layoutX="145.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="327.7294921875">
+                                          <Text fx:id="valeurListeAchat" fill="#192e40" layoutX="78.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="327.7294921875" AnchorPane.bottomAnchor="44.541014671325684" AnchorPane.leftAnchor="83.0">
                                              <font>
                                                 <Font name="System Bold Italic" size="15.0" />
                                              </font>
@@ -81,7 +81,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
                            <children>
-                              <TableView fx:id="listeChaine" layoutX="85.0" layoutY="66.0" prefHeight="440.0" prefWidth="480.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="65.0">
+                              <TableView fx:id="listeChaine" layoutX="85.0" layoutY="66.0" prefHeight="440.0" prefWidth="671.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="65.0">
                                 <columns>
                                   <TableColumn prefWidth="177.0" />
                                   <TableColumn prefWidth="147.0" />
@@ -92,11 +92,25 @@
                                     <Font name="System Bold" size="22.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="btnSimulation" layoutX="435.0" layoutY="535.0" mnemonicParsing="false" onAction="#simulation" text="simuler" />
-                              <TextArea fx:id="areaBenefice" layoutX="758.0" layoutY="283.0" prefHeight="66.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="22.0" />
+                              <Button fx:id="btnSimulation" layoutX="435.0" layoutY="535.0" mnemonicParsing="false" onAction="#simulation" prefHeight="33.0" prefWidth="118.0" text="Simuler" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="435.0" />
+                              <TextArea fx:id="areaErreur" layoutX="740.0" layoutY="363.0" prefHeight="120.0" prefWidth="200.0" AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="40.0" />
+                              <TextArea fx:id="areaBenefice" layoutX="742.0" layoutY="65.0" prefHeight="106.0" prefWidth="200.0" AnchorPane.bottomAnchor="434.0" AnchorPane.rightAnchor="40.0" />
                            </children>
                         </AnchorPane>
                      </content>
+                  </Tab>
+                  <Tab text="Personnel">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
+                           <children>
+                              <TableView fx:id="listePersonnel" layoutX="44.0" layoutY="82.0" prefHeight="479.0" prefWidth="559.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="82.0" />
+                              <Text layoutX="281.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des personnels" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font></Text>
+                           </children>
+                        </AnchorPane>
+                    </content>
                   </Tab>
                </tabs>
             </TabPane>

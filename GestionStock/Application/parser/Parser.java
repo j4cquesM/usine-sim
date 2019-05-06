@@ -31,7 +31,7 @@ public class Parser {
         }
 
 
-        Element e = new Element(nom, code, unite, achat, vente);
+        Element e = new Element(nom, code, unite, achat, vente,2.0);
         s.stocker(e, Double.parseDouble((String) token.get("Quantite")));
         //System.out.println(s.getElementByCode("E002"));
     }
@@ -53,7 +53,7 @@ public class Parser {
         String nom = (String) token.get("Nom");
         String entree = (String) token.get("Entree (code,qte)");
         String sortie = (String) token.get("Sortie (code,qte)");
-        Chaine c1 = new Chaine(nom, code);
+        Chaine c1 = new Chaine(nom, code,1.0,1.0,0.0);
         String[] token_entree = entree.split(",");
         String[] token_sortie = sortie.split(",");
        // System.out.println(token_entree[0]+" "+token_entree[1]+" "+token_entree[2]+" "+token_entree[3]);
