@@ -157,10 +157,13 @@ public class StockCtrl implements Initializable {
     	//charger chaine csv
     	this.chargerChaineCSV();
     	
+    	//charger le fichier personnel 
+    	this.chargerPersonnelCSV();
+    	
     	//desactive le champ benefice
     	this.disableAreas();
     	
-    	this.afficheListePersonnel() ;
+    	
 
     }
 
@@ -318,7 +321,7 @@ public class StockCtrl implements Initializable {
     	//recupère le stock et la liste de chaine de production
     	Stock stock = this.stockData ;
     	Stock stockSimulation = stock ;
-    	ArrayList<Personnel> personnelSimulation = Util.retObservableList(personnelData) ;
+    	ObservableList<Personnel> personnelSimulation = this.personnelData ;
     	String messageErreur = "";
 		double benefice = 0 ;
 		boolean afficheSimulation = false ;
@@ -330,7 +333,7 @@ public class StockCtrl implements Initializable {
     			afficheSimulation = true ;
     			try {
 					stockSimulation = chaineAffichable.produire( Double.parseDouble(niveauActivation),stockSimulation);
-					personnelSimulation = chaineAffichable.gestionPersonnel(personnelSimulation) ;
+					personnelSimulation = chaineAffichable.gestionPersonnel(personnelSimulation,Double.parseDouble(niveauActivation)) ;
 					benefice += stockSimulation.getBenefice();
 				} catch (NumberFormatException | ProductionImpossibleException e) {
 					messageErreur += e.getMessage();
@@ -351,15 +354,14 @@ public class StockCtrl implements Initializable {
         }
         
         if( benefice > 0 ) {
-        	ObservableList<Personnel> personnelDataSimulation = FXCollections.observableArrayList(personnelSimulation); 
-        	this.application.showSimulationDialog(stockSimulation,personnelDataSimulation );
+        	this.application.showSimulationDialog(stockSimulation,personnelSimulation );
         	String messageBenefice = "Vous avez " + benefice + " euros de bénéfice." ;
         	showAreaBenefice( messageBenefice ) ;
         }
         
         if( ! messageErreur.isEmpty() )
         {
-        	 showAreaBenefice( messageErreur ) ;
+        	 showAreaErreur( messageErreur ) ;
         }
        
     }
@@ -472,6 +474,13 @@ public class StockCtrl implements Initializable {
          
 
 
+    }
+    
+    private void chargerPersonnelCSV() {
+    	
+    	//generer la arrayList de personnel
+    	//set les personnels  dans le factory app
+    	this.afficheListePersonnel() ;
     }
     
     

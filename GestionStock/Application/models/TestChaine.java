@@ -103,7 +103,7 @@ public class TestChaine {
 			
 			for(Chaine ca:a)
 			{
-				pp = ca.gestionPersonnel(personnelData);
+				pp = ca.gestionPersonnel(personnelData,2.0);
 			}
 			
 		}

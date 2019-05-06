@@ -77,6 +77,19 @@
                         </AnchorPane>
                      </content>
                   </Tab>
+                  <Tab text="Personnels">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
+                           <children>
+                              <TableView fx:id="listePersonnel" layoutX="165.0" layoutY="60.0" prefHeight="479.0" prefWidth="559.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="60.0" />
+                              <Text layoutX="281.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des personnels" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font></Text>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
                   <Tab text="Chaines">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
@@ -98,19 +111,6 @@
                            </children>
                         </AnchorPane>
                      </content>
-                  </Tab>
-                  <Tab text="Personnel">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
-                           <children>
-                              <TableView fx:id="listePersonnel" layoutX="44.0" layoutY="82.0" prefHeight="479.0" prefWidth="559.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="82.0" />
-                              <Text layoutX="281.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des personnels" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="13.0">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font></Text>
-                           </children>
-                        </AnchorPane>
-                    </content>
                   </Tab>
                </tabs>
             </TabPane>

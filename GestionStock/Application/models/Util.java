@@ -113,12 +113,12 @@ public class Util {
 	    Set<Personnel> mySet = new HashSet<>(liste );
 	 
 	    // Créer une Nouvelle ArrayList à partir de Set
-	    ArrayList<Personnel> array_L2 = new ArrayList<Personnel>(mySet);
+	    ArrayList<Personnel> arrayL2 = new ArrayList<Personnel>(mySet);
 	    
-	    return array_L2 ;
+	    return arrayL2 ;
 	}
 	
-	public static ArrayList<Personnel> retObservableList(ObservableList<Personnel> o)
+	public static ArrayList<Personnel> retArrayList(ObservableList<Personnel> o)
 	{
 		 ArrayList<Personnel> listeResult = new ArrayList<>() ;
 		

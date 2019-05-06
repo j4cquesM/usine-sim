@@ -118,30 +118,28 @@ public class Chaine {
 	 * @return le benefice produit
 	 *  @throws ProductionImpossibleException production impossible
 	 */
-	public ArrayList<Personnel> gestionPersonnel( ArrayList<Personnel> listePersonnel) throws ProductionImpossibleException
+	public ObservableList<Personnel> gestionPersonnel( ObservableList<Personnel> listePersonnel , double niveauActivation ) throws ProductionImpossibleException
 	{
-		ArrayList<Personnel> listeResultat = new ArrayList<>() ;
+		
+		ArrayList<Personnel> listeResultat = Util.retArrayList(listePersonnel) ;
 		ArrayList<Personnel> listeResultatFinal = new ArrayList<>() ;
-		//copie de la liste de personnel de base
-		for(Personnel p:listePersonnel) {
-			listeResultat.add(p) ;
-		}
+		
 		
 		//personnel qualifiés 
-		ArrayList<Personnel> personnelQualifie = this.getListePersonnelQualifie(listeResultat, this.getPersonnelQualifie()) ;
+		ArrayList<Personnel> personnelQualifie = this.getListePersonnelQualifie(listeResultat, this.getPersonnelQualifie(),niveauActivation) ;
 		if( personnelQualifie.size() == this.getPersonnelQualifie() )
 		{
 			//on ajout à la liste de resultat
 			listeResultatFinal.addAll(personnelQualifie) ;
 			
 			//personnel non qualifié
-			ArrayList<Personnel> personnelNonQualifie = this.getListePersonnelNonQualifie(listeResultat, this.getPersonnelNonQualifie()) ;
+			ArrayList<Personnel> personnelNonQualifie = this.getListePersonnelNonQualifie(listeResultat, this.getPersonnelNonQualifie(),niveauActivation) ;
 			listeResultatFinal.addAll(personnelNonQualifie) ;
 			if( personnelNonQualifie.size() != this.getPersonnelNonQualifie() ) {
 				//si on a pas assez de personnel qualifié on fait appel au personnel qualifié 
 				listeResultat.removeAll(personnelQualifie) ;
 				double personnelRestant = this.getPersonnelNonQualifie() - personnelNonQualifie.size() ;
-				ArrayList<Personnel> personnelNonQualifieRestant = this.getListePersonnelQualifie(listeResultat, personnelRestant) ;
+				ArrayList<Personnel> personnelNonQualifieRestant = this.getListePersonnelQualifie(listeResultat, personnelRestant,niveauActivation) ;
 				
 				if(personnelNonQualifie.size() + personnelNonQualifieRestant.size() == this.getPersonnelNonQualifie())
 				{
@@ -154,7 +152,7 @@ public class Chaine {
 				}
 			}
 			
-			listeResultatFinal = this.addTempsTravail(listeResultatFinal,true) ;
+			listeResultatFinal = this.addTempsTravail(listeResultatFinal,niveauActivation,true) ;
 			listeResultat = Util.addSansDoublons(listeResultat, listeResultatFinal) ;
 		}
 		else
@@ -163,9 +161,8 @@ public class Chaine {
 					+ "il n'y a pas assez de personnel qualifié ");
 		}
 		
-		//ObservableList<Personnel> listeResultatObservable = FXCollections.observableArrayList(listeResultat); 
-		
-		return listeResultat  ;
+		ObservableList<Personnel> listeResultatObservable = FXCollections.observableArrayList(listeResultat);
+		return listeResultatObservable  ;
 	}
 	
 	/**
@@ -174,9 +171,9 @@ public class Chaine {
 	 * @param forced indique si un qualifié fait le travail d'un non qualifié
 	 */
 	
-	private ArrayList<Personnel> addTempsTravail ( ArrayList<Personnel> list , boolean forced ) {
+	private ArrayList<Personnel> addTempsTravail ( ArrayList<Personnel> list,double niveauActivation , boolean forced ) {
 		for(Personnel p : list) {
-			p.addTempsTravail(this.getCode(), this.getTemps(), forced);
+			p.addTempsTravail(this.getCode(), this.getTemps()*niveauActivation, forced);
 		}
 		return list ;
 	}
@@ -187,7 +184,7 @@ public class Chaine {
 	 * @return Renvoie les personnes qualifiés
 	 */
 	
-	private ArrayList<Personnel> getListePersonnelQualifie( ArrayList<Personnel> listePersonnel , double nbRequis){
+	private ArrayList<Personnel> getListePersonnelQualifie( ArrayList<Personnel> listePersonnel , double nbRequis, double niveauActivation){
 		ArrayList<Personnel> listeResultat = new ArrayList<>() ;
 		if( nbRequis > 0 )
 		{
@@ -199,7 +196,7 @@ public class Chaine {
 				Personnel p = iter.next() ;
 				if( p.isQualified() )
 				{
-					if(p.checkTempsTravail(this.getTemps()))
+					if(p.checkTempsTravail(this.getTemps()*niveauActivation))
 					{
 						listeResultat.add(p);
 						nb ++ ;
@@ -211,7 +208,7 @@ public class Chaine {
 		return listeResultat ;
 	}
 	
-	private ArrayList<Personnel> getListePersonnelNonQualifie( ArrayList<Personnel> listePersonnel , double nbRequis ){
+	private ArrayList<Personnel> getListePersonnelNonQualifie( ArrayList<Personnel> listePersonnel , double nbRequis , double niveauActivation ){
 			
 		ArrayList<Personnel> listeResultat = new ArrayList<>() ;
 
@@ -225,7 +222,7 @@ public class Chaine {
 				Personnel p = iter.next() ;
 				if( ! p.isQualified() )
 				{
-					if(p.checkTempsTravail(this.getTemps()))
+					if(p.checkTempsTravail(this.getTemps()*niveauActivation))
 					{
 						listeResultat.add(p);
 						nb ++ ;

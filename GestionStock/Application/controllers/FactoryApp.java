@@ -161,6 +161,10 @@ public class FactoryApp extends Application {
 		return this.personnelData;
 	}
 	
+	public void setPersonnelData(ObservableList<Personnel> s) {
+		this.personnelData = s;
+	}
+	
 	public Stock getStockData() {
 		return this.stockData;
 	}
