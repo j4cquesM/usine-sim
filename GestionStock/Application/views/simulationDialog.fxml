@@ -43,7 +43,7 @@
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="btnExportListe" layoutX="263.0" layoutY="512.0" mnemonicParsing="false" onAction="#exporterListe" text="Export" />
+                                    <Button fx:id="btnExportListe" layoutX="263.0" layoutY="512.0" mnemonicParsing="false" onAction="#exporterListe" text="Export" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="16.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
@@ -91,7 +91,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Button layoutX="638.0" layoutY="508.0" mnemonicParsing="false" text="Exporter" />
+                        <Button fx:id="btnExportPersonnel" layoutX="638.0" layoutY="508.0" mnemonicParsing="false" onAction="#exporterPersonnel" text="Exporter" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="12.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

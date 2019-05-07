@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 import parser.CSVReader;
+import parser.Parser ;
 
 
 
@@ -43,12 +45,24 @@ public class FactoryApp extends Application {
 		this.chaineData = FXCollections.observableArrayList();
 		this.personnelData = FXCollections.observableArrayList(); 
 		
-		Personnel p1 = new Personnel("001","Jane","Doe",false,12) ;
-		Personnel p2 = new Personnel("002","Jana","Doa",true,15) ;
-		Personnel p3 = new Personnel("003","Jani","Doi",true,18) ;
-		Personnel p4 = new Personnel("004","Jano","Doo",false,10) ;
+//		for(int i=0; i<8; i++)
+//		{
+//			boolean qual ;
+//			if(i%2==0) {
+//				qual = true;
+//			}
+//			else {
+//				qual = false ;
+//			}
+//			Random r = new Random();
+//			int temps = r.nextInt(25) + 10 ;
+//			Personnel p = new Personnel("00"+i , "Nom"+i, "Prenom"+i,qual,temps ) ;
+//			
+//			personnelData.add(p) ;
+//		}
 		
-		personnelData.addAll(p1,p2,p3,p4) ;
+		personnelData.addAll(Parser.personnelParser("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv"));
+		
 		
 		
 	 }

@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
+import models.Util;
 import models.Element.Element;
 import models.Element.ElementAffichable;
 import models.Personnel.Personnel;
@@ -59,7 +60,9 @@ public class SimulationCtrl implements Initializable {
     @FXML
     private TableColumn<ElementAffichable, String> colUniteMesureStock;
     @FXML
-    private TableColumn<ElementAffichable, String> colDemandeStock;
+    private TableColumn<ElementAffichable, Double> colDemandeStock;
+    @FXML
+    private TableColumn<ElementAffichable, String> colSatisfactionStock;
 
 
     //table view liste achat
@@ -165,10 +168,13 @@ public class SimulationCtrl implements Initializable {
         colQuantiteStock.setCellValueFactory(cellData -> cellData.getValue().getQuantiteProperty().asObject());
         
         colDemandeStock = new TableColumn<>("Demande");
-        colDemandeStock.setCellValueFactory(cellData -> cellData.getValue().getSatisfaction());
+        colDemandeStock.setCellValueFactory(cellData -> cellData.getValue().getDemandeProperty().asObject());
+        
+        colSatisfactionStock = new TableColumn<>("Objectif");
+        colSatisfactionStock.setCellValueFactory(cellData -> cellData.getValue().getSatisfaction());
 
         //on les ajoute au tableau
-        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock,colDemandeStock);
+        listeStock.getColumns().setAll(colNomStock, colCodeStock, colUniteMesureStock, colPrixAchatStock, colPrixVenteStock, colQuantiteStock,colDemandeStock,colSatisfactionStock);
 
         //on affiche la valeur du stock
         valeurStock.setText("Valeur du stock : " + this.getStockData().getValeur() + " €");
@@ -286,9 +292,34 @@ public class SimulationCtrl implements Initializable {
 
     @FXML
     private void exporterPersonnel() {
-        //pour avoir les personnels tu fais this.personnelData 
-   
-        
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (.json)", ".json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File selectedFile = fileChooser.showSaveDialog(this.application.getPrimaryStage());
+        if (selectedFile != null) {
+            String cheminDuFichier = selectedFile.getAbsolutePath();
+            if (  ! cheminDuFichier.isEmpty() ){
+                ArrayList<Personnel> listep = Util.retArrayList(this.personnelData);
+
+                JSONTemplate template = new JSONTemplate(cheminDuFichier, listep);
+                JSONSerializer serializer = new JSONSerializer();
+                try {
+                    serializer.serializeToFile(template);
+                } catch (IOException e) {
+                    System.out.println("Impossible d'écrire dans le fichier - "+e.getMessage());
+                }
+            }
+            else {
+                this.showIsEmpty();
+            }
+        }
+        /*
+        int j = this.personnelData.size();
+        for(int i=0;i<j;i++){
+            this.personnelData.get(i);
+        }*/
+
     }
 
     private void showIsEmpty() {

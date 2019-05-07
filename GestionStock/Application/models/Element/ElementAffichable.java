@@ -34,17 +34,20 @@ public class ElementAffichable extends Element {
 	
 	public StringProperty getSatisfaction()
 	{
-		String message = "" ;
-		if(this.getQuantite() >= super.getDemande() )
+		String message = "0" ;
+		if( super.getDemande() >0 )
 		{
-			message = "Satisfaite" ;
+			if(this.getQuantite() >= super.getDemande() )
+			{
+				message = "Atteint" ;
+			}
+			else
+			{
+
+				int pourcentage = (int) ((int) ( this.getQuantite() * 100 ) / this.getDemande()) ;
+				message = pourcentage + "%" ;
+			}
 		}
-		else
-		{
-			double pourcentage = ( this.getQuantite() * 100 ) / this.getDemande() ;
-			message = pourcentage + "%" ;
-		}
-		
 		return new SimpleStringProperty(message)  ;
 		
 	}

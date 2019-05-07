@@ -274,6 +274,7 @@ public class StockCtrl implements Initializable {
         
         //on les ajoute au tableau
         listeChaine.getColumns().setAll(colNomC,colCodeC,colNiveauActivationC,colTempsC,colPersoQualifieC,colPersoNonQualifie);
+        
     }
     
     /**
@@ -329,7 +330,7 @@ public class StockCtrl implements Initializable {
     	for(Chaine chaineAffichable :this.chaineData) {
     		
     		String niveauActivation = chaineAffichable.getNiveauActivation().getText() ;
-    		if( ! niveauActivation.isEmpty() &&  ( Integer.parseInt(niveauActivation) >0 ) ) {
+    		if( ! niveauActivation.isEmpty() &&  ( Double.parseDouble(niveauActivation) > 0 ) ) {
     			afficheSimulation = true ;
     			try {
 					stockSimulation = chaineAffichable.produire( Double.parseDouble(niveauActivation),stockSimulation);
@@ -366,53 +367,7 @@ public class StockCtrl implements Initializable {
        
     }
     
-
-   /* @FXML
-    private void simulation() throws ProductionImpossibleException {
-
-        if (this.dataNotNull()) {
-
-            double niveauActivation = Double.parseDouble(fieldNiveauActivation.getText());
-
-            Chaine chaine = listeChaine.getValue();
-            String message = "";
-            try {
-                Stock stockSimulation = chaine.produire(niveauActivation, this.application.getStockData());
-
-                double benefice = stockSimulation.getBenefice();
-
-                message += "Vous avez " + benefice + " € de benefice !";
-
-                this.application.showSimulationDialog(stockSimulation);
-
-
-            } catch (ProductionImpossibleException e) {
-                message += e.toString();
-            }
-
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(this.application.getPrimaryStage());
-            alert.setTitle("Données absentes");
-            alert.setHeaderText("Pas de chaine et/ou niveau d'activation");
-            alert.setContentText("Veuillez selectionner une chaine et/ou entrer un niveau d'activation.");
-
-            alert.showAndWait();
-        }
-
-    }
-
-    private boolean dataNotNull() {
-        boolean vide = false;
-        if ((listeChaine.getValue() != null) && (fieldNiveauActivation.getText() != "")) {
-            vide = true;
-
-        }
-
-        return vide;
-    }
-*/
+          
     /**
      * fonction appelée au chargement des chaines csv
      */
@@ -435,10 +390,10 @@ public class StockCtrl implements Initializable {
             
             }*/
             
-            String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/chaines.csv";
+    	    String filePath = "/home/claude/Téléchargements/FichiersV2__78__0/chaines.csv";
             ObservableList<Chaine> chaineData = this.application.getChaineData();
-            ObservableList<Chaine> newChaine = Parser.chaineParser(filePath, chaineData, this.application.getStockData());   
-            this.application.setChaineData(newChaine);
+            Parser.chaineParser(filePath, chaineData, this.application.getStockData());
+            this.application.setChaineData(chaineData);
             this.afficheListeChaine();    
     }
     
@@ -463,10 +418,10 @@ public class StockCtrl implements Initializable {
 
             this.afficheListeAchat();
         }*/
-         String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/elements.csv";
+         String filePath = "/home/claude/Téléchargements/FichiersV2__78__0/elements.csv";
          Stock stock = this.application.getStockData();
-         Stock newStock= Parser.elementParser(filePath, stock);
-         this.application.setStockDatta(newStock);
+         Parser.elementParser(filePath, stock);
+         this.application.setStockDatta(stock);
 
          this.afficheStock();
 
@@ -480,9 +435,6 @@ public class StockCtrl implements Initializable {
     	
     	//generer la arrayList de personnel
     	//set les personnels  dans le factory app
-    	
-    	
-    	
     	
     	this.afficheListePersonnel() ;
     }
@@ -552,6 +504,8 @@ public class StockCtrl implements Initializable {
 
         alert.showAndWait();
     }
+    
+    
     
     
 

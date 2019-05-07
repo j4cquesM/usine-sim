@@ -67,36 +67,37 @@ public class Chaine {
 		//duplication du stock pour la simulation
 		Stock stockSimulation = new Stock(stock);
 		
-		if(niveauActivation != 0)
+		if(niveauActivation > 0 )
 		{
 			for(Element elem : this.composants.keySet())
 			{
 				
 					double quantite = niveauActivation * this.composants.get(elem);
-					
-					try {
-						stockSimulation.destocker(elem , quantite );
-						
-						if( stockSimulation.getQuantite(elem) < 0  ) {
+					if(quantite>0)
+					{
+						try {
+							stockSimulation.destocker(elem , quantite );
 							
-							if( elem.isMatierePremiere() ) {
+							if( stockSimulation.getQuantite(elem) < 0  ) {
 								
-								//ajout à la liste d'achat 
-								double quantiteAchat = stockSimulation.getQuantiteMinAchat(elem);
-								
-								stock.acheter(elem, quantiteAchat);
-								
+								if( elem.isMatierePremiere() ) {
+									
+									//ajout à la liste d'achat 
+									double quantiteAchat = stockSimulation.getQuantiteMinAchat(elem);
+									
+									stock.acheter(elem, quantiteAchat);
+									
+								}
+								else {
+									throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+" car "+elem.getNom()+" a un stock negatif" );
+								}
 							}
-							else {
-								throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+" car "+elem.getNom()+" a un stock negatif" );
-							}
+							
+						} catch (NonExistantException e) {
+							// TODO Auto-generated catch block
+							throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+"\n"+e.getMessage());
 						}
-						
-					} catch (NonExistantException e) {
-						// TODO Auto-generated catch block
-						throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+"\n"+e.getMessage());
 					}
-							
 					
 			}
 			//ajout des elements en sortie de le stock
