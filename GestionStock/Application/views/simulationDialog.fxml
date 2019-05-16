@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="761.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SimulationCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="761.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SimulationCtrl">
    <children>
       <TabPane prefHeight="592.0" prefWidth="761.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -91,7 +91,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Button layoutX="638.0" layoutY="508.0" mnemonicParsing="false" text="Exporter" />
+                        <Button fx:id="btnExportPersonnel" layoutX="638.0" layoutY="508.0" mnemonicParsing="false" onAction="#exporterPersonnel" text="Exporter" />
                      </children></AnchorPane>
             </content>
           </Tab>

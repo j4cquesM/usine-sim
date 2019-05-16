@@ -435,10 +435,10 @@ public class StockCtrl implements Initializable {
             
             }*/
             
-            String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/chaines.csv";
+            String filePath = "C:\\Users\\Jacques Messs\\OneDrive - MIAGE\\FichiersV2__78__0\\chainesv2.csv";
             ObservableList<Chaine> chaineData = this.application.getChaineData();
-            ObservableList<Chaine> newChaine = Parser.chaineParser(filePath, chaineData, this.application.getStockData());   
-            this.application.setChaineData(newChaine);
+            Parser.chaineParser(filePath, chaineData, this.application.getStockData());
+            this.application.setChaineData(chaineData);
             this.afficheListeChaine();    
     }
     
@@ -463,10 +463,10 @@ public class StockCtrl implements Initializable {
 
             this.afficheListeAchat();
         }*/
-         String filePath = "/home/claude/Téléchargements/FichiersV1__78__0/elements.csv";
+         String filePath = "C:\\Users\\Jacques Messs\\OneDrive - MIAGE\\FichiersV2__78__0\\elementsv2.csv";
          Stock stock = this.application.getStockData();
-         Stock newStock= Parser.elementParser(filePath, stock);
-         this.application.setStockDatta(newStock);
+         Parser.elementParser(filePath, stock);
+         this.application.setStockDatta(stock);
 
          this.afficheStock();
 

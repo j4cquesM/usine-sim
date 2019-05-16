@@ -24,6 +24,8 @@ import models.Stock.Stock;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
+import models.Util;
+import serializer.JSONListePersonnelTemplate;
 import serializer.JSONSerializer;
 import serializer.JSONTemplate;
 
@@ -286,9 +288,34 @@ public class SimulationCtrl implements Initializable {
 
     @FXML
     private void exporterPersonnel() {
-        //pour avoir les personnels tu fais this.personnelData 
-   
-        
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File selectedFile = fileChooser.showSaveDialog(this.application.getPrimaryStage());
+        if (selectedFile != null) {
+            String cheminDuFichier = selectedFile.getAbsolutePath();
+            if (  ! cheminDuFichier.isEmpty() ){
+                ArrayList<Personnel> listep = Util.retArrayList(this.personnelData);
+
+                JSONListePersonnelTemplate template = new JSONListePersonnelTemplate(cheminDuFichier, listep);
+                JSONSerializer serializer = new JSONSerializer();
+                try {
+                    serializer.serializeToFile(template);
+                } catch (IOException e) {
+                    System.out.println("Impossible d'écrire dans le fichier - "+e.getMessage());
+                }
+            }
+            else {
+                this.showIsEmpty();
+            }
+        }
+        /*
+        int j = this.personnelData.size();
+        for(int i=0;i<j;i++){
+            this.personnelData.get(i);
+        }*/
+
     }
 
     private void showIsEmpty() {

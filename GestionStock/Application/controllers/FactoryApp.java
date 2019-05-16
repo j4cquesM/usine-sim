@@ -28,6 +28,7 @@ import models.Stock.ListeAchat;
 import models.Stock.Stock;
 import views.SimulationCtrl;
 import views.StockCtrl;
+import parser.Parser;
 
 public class FactoryApp extends Application {
 	
@@ -42,13 +43,15 @@ public class FactoryApp extends Application {
 		this.stockData = new Stock();
 		this.chaineData = FXCollections.observableArrayList();
 		this.personnelData = FXCollections.observableArrayList(); 
-		
+		/*
 		Personnel p1 = new Personnel("001","Jane","Doe",false,12) ;
 		Personnel p2 = new Personnel("002","Jana","Doa",true,15) ;
 		Personnel p3 = new Personnel("003","Jani","Doi",true,18) ;
-		Personnel p4 = new Personnel("004","Jano","Doo",false,10) ;
+		Personnel p4 = new Personnel("004","Jano","Doo",false,10) ;*/
+
+		//Parser.personnelParser("C:\\Users\\Jacques Messs\\OneDrive - MIAGE\\FichiersV2__78__0\\personnel.csv");
 		
-		personnelData.addAll(p1,p2,p3,p4) ;
+		personnelData.addAll(Parser.personnelParser("C:\\Users\\Jacques Messs\\OneDrive - MIAGE\\FichiersV2__78__0\\personnel.csv"));
 		
 		
 	 }
