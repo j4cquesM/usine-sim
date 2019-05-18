@@ -11,6 +11,11 @@ public class JSONTemplate {
 	private Map listeachat;
 	private ArrayList<PersonnelTemplate> liste_personnel;
 
+	/**
+	 * @param filename nom du fichier dans lequel sera écrit le json
+	 * @param stock Objet stock à serialiser (dictionnaire)
+	 * @param listeachat Objet listeachat à serialiser (dictionnaire)
+	 */
 	public JSONTemplate(String filename, Map stock, Map listeachat) {
 		this.filename=filename;
 		this.stock=stock;

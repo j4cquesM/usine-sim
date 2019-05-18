@@ -12,7 +12,14 @@ import java.lang.Double;
 import models.Chaine.Chaine;
 import models.Personnel.Personnel;
 
+/**
+ * Classe permettant de parser les données du fichier (entrée).
+ */
 public class Parser {
+    /**
+     * @param token correspond à une ligne du tableau
+     * @param s objet stock du modèle
+     */
     public static void elementSerializer(LinkedHashMap token, Stock s) {
         String nom = (String) token.get("Nom");
         String code = (String) token.get("Code");
@@ -30,16 +37,16 @@ public class Parser {
         } else {
             vente = Double.parseDouble((String) token.get("vente"));
         }
-        // V2
-        //String stockage = (String) token.get("stockage");
         double demande = Double.parseDouble((String) token.get("Demande"));
         // ------
         Element e = new Element(nom,code, unite, achat, vente, demande);
-        //Element e = new Element(nom, code, unite, achat, vente);
         s.stocker(e, Double.parseDouble((String) token.get("Quantite")));
-        //System.out.println(s.getElementByCode("E002"));
     }
 
+    /**
+     * @param filePath chemin du fichier à parser
+     * @param s objet stock du modèle (mise à jour du stock à partir des données parsées)
+     */
     public static void elementParser(String filePath, Stock s) {
         CSVReader element = new CSVReader(filePath);
         element.read();
@@ -52,22 +59,26 @@ public class Parser {
 
     }
 
+    /**
+     * @param token correspond à une ligne du tableau de données (chaines.csv)
+     * @param chaineData liste d'objets chaines du modèle
+     * @param s objet stock mis à jour à partir des données parsées
+     */
     public static void chaineSerializer(LinkedHashMap token, ObservableList chaineData, Stock s) {
         String code = (String) token.get("Code");
         String nom = (String) token.get("Nom");
         String entree = (String) token.get("Entree (code,qte)");
         String sortie = (String) token.get("Sortie (code,qte)");
-        // V2
+
         double temps = Double.parseDouble((String) token.get("Temps"));
         double qual = Double.parseDouble((String) token.get("Personnels qualifies"));
         double nonqual = Double.parseDouble((String) token.get("Personnels non qualifies"));
         // --------------
         Chaine c1 = new Chaine(nom,code, temps, qual, nonqual);
-        //Chaine c1 = new Chaine(nom, code);
         String[] token_entree = entree.split(",");
         String[] token_sortie = sortie.split(",");
         System.out.println("TOKENS ENTREE --- \n");
-        //System.out.println(token_entree[0]+" "+token_entree[1]+" "+token_entree[2]+" "+token_entree[3]);
+
         for (int n = 0; n < (token_entree.length - 1); n=n+2) {
             String entree_code = token_entree[n].replace("(", "").replace(")", "");
             System.out.println("Code = " + entree_code);
@@ -75,7 +86,6 @@ public class Parser {
             String entree_quantite = token_entree[n + 1].replace("(", "").replace(")", "");
             System.out.println("Quantite = " + entree_quantite);
             Element e = s.getElementByCode(entree_code);
-            //System.out.println(e.toString());
             c1.addComposant(e,Double.parseDouble(entree_quantite));
 
         }
@@ -96,6 +106,11 @@ public class Parser {
         chaineData.add(c1);
     }
 
+    /**
+     * @param filePath chemin du fichier à parser
+     * @param chaineData liste d'objets chaines du modèle
+     * @param s objet stock mis à jour à partir des données parsées
+     */
     public static void chaineParser (String filePath, ObservableList chaineData, Stock s){
         CSVReader chaines = new CSVReader(filePath);
         chaines.read();
@@ -105,6 +120,9 @@ public class Parser {
         }
     }
 
+    /**
+     * surcharge de la méthode chaineParser à des fins de tests.
+     */
     public static void chaineParser (String filePath){
         CSVReader chaines = new CSVReader(filePath);
         chaines.read();
@@ -114,8 +132,11 @@ public class Parser {
         }
     }
 
+    /**
+     * @param token tuples de données d'un fichier personnel.csv
+     * @return retourne l'objet personnel crée à partir des données lues
+     */
     public static Personnel personnelSerializer(LinkedHashMap token){
-        // Cette partie dépendra de la structure de ta classe Personnel, je ne fais que la reprendre
         ArrayList<Personnel> listp = new ArrayList<Personnel>();
         String code = (String) token.get("code");
         String prenom = (String) token.get("prenom");
@@ -135,6 +156,10 @@ public class Parser {
 
     }
 
+    /**
+     * @param filePath nom du fichier à parser
+     * @return retourne une liste de personnel correspondant au nombre de lignes du fichier personnel.csv parsé
+     */
     public static ArrayList<Personnel> personnelParser (String filePath){
         ArrayList<Personnel> listp = new ArrayList<Personnel>();
         CSVReader personnel = new CSVReader(filePath);
