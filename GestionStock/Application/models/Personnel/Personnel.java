@@ -135,6 +135,10 @@ public class Personnel {
 		return this.prenom;
 	}
 
+	public HashMap<String,Double> getRepartitionQualifiee() { return this.repartitionQualifiee;}
+
+	public HashMap<String,Double> getRepartitionNonQualifiee() { return this.repartitionNonQualifiee;}
+
 	
 	public boolean getQualification()
 	{
