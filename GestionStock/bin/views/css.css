@@ -9,6 +9,35 @@
 
 }
 
+.label2 {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #50A5A6;
+
+}
+
+.label3 {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #50A5A6;
+
+}
+
+.labelBenefice {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #50A5A6;
+
+}
+
+.labelErreur {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FF0000;
+
+}
+
+
 
 .label-bright {
     -fx-font-size: 11pt;
@@ -27,6 +56,14 @@
 
 .table-view {
     -fx-base: #50A5A6;
+    -fx-background-color: #50A5A6;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.list-view{
+	-fx-base: #50A5A6;
     -fx-background-color: #50A5A6;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;

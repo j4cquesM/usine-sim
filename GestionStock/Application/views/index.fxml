@@ -1,31 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.StockCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="980.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.StockCtrl">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="980.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="980.0" stylesheets="@css.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TabPane prefHeight="437.0" prefWidth="736.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane prefHeight="437.0" prefWidth="1091.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
+                  <Tab text="Chaines">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
+                           <children>
+                              <TableView fx:id="listeChaine" layoutX="85.0" layoutY="66.0" prefHeight="440.0" prefWidth="671.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="65.0">
+                                <columns>
+                                  <TableColumn prefWidth="177.0" />
+                                  <TableColumn prefWidth="147.0" />
+                                </columns>
+                              </TableView>
+                              <Text fill="#192e40" layoutX="329.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Chaines" AnchorPane.topAnchor="13.197916030883789">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <HBox alignment="CENTER" layoutX="3.0" layoutY="501.0" prefHeight="58.0" prefWidth="973.0" spacing="15.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0">
+                                 <children>
+                                    <Button fx:id="btnMemorisation" mnemonicParsing="false" onAction="#getNomsimulation" prefHeight="33.0" prefWidth="129.0" text="Memoriser" />
+                                    <Label fx:id="labelSimulation" prefHeight="36.0" prefWidth="171.0" styleClass="label2" text="Nom de la simulation : " />
+                                    <TextField fx:id="nomSimulation" />
+                                    <Button fx:id="btnEnregistrer" mnemonicParsing="false" onAction="#enregistrerSimulation" text="Enregistrer" />
+                                    <Button fx:id="btnSimulation" mnemonicParsing="false" onAction="#simulation" prefHeight="33.0" prefWidth="118.0" text="Simuler" />
+                                 </children>
+                              </HBox>
+                              <VBox layoutX="766.0" layoutY="58.0" prefHeight="324.0" prefWidth="234.0" spacing="15.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="65.0">
+                                 <children>
+                                    <Label fx:id="labelHistorique" prefHeight="40.0" prefWidth="234.0" styleClass="label3" text="Historique des simulations" />
+                                    <ListView fx:id="listViewSimalation" prefHeight="125.0" prefWidth="234.0" />
+                                    <Label fx:id="labelBenefice" prefHeight="129.0" prefWidth="231.0" styleClass="labelBenefice" text="Label benefices" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
                   <Tab text="Stocks">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@css.css">
                            <children>
-                              <SplitPane dividerPositions="0.5013623978201635" layoutX="99.0" layoutY="64.0" prefHeight="404.0" prefWidth="736.0" stylesheets="@css.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane layoutX="99.0" layoutY="64.0" prefHeight="404.0" prefWidth="736.0" stylesheets="@css.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
                                        <children>
-                                          <TableView fx:id="listeStock" layoutX="14.0" layoutY="14.0" prefHeight="402.0" prefWidth="364.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                                          <TableView fx:id="listeStock" layoutX="23.0" layoutY="49.0" prefHeight="470.0" prefWidth="747.0" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="211.0" AnchorPane.topAnchor="60.0">
                                              <columns>
                                                 <TableColumn fx:id="colNomStock" prefWidth="75.0" text="Nom" />
                                                 <TableColumn fx:id="colCodeStock" prefWidth="75.0" text="Code" />
@@ -35,36 +74,12 @@
                                                 <TableColumn fx:id="colQuantiteStock" prefWidth="75.0" text="Quantite" />
                                              </columns>
                                           </TableView>
-                                          <Text fill="#192e40" layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Liste des stocks" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="10.0">
+                                          <Text fill="#192e40" layoutX="163.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Liste des stocks" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="13.0">
                                              <font>
                                                 <Font name="System Bold" size="16.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="valeurStock" fill="#192e40" layoutX="83.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="332.7294921875" AnchorPane.bottomAnchor="44.541014671325684" AnchorPane.leftAnchor="83.0">
-                                             <font>
-                                                <Font name="System Bold Italic" size="15.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@css.css">
-                                       <children>
-                                          <Text fill="#192e40" layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Liste d'achat" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="13.0">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Text>
-                                          <TableView fx:id="listeAchat" prefHeight="402.0" prefWidth="362.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-                                             <columns>
-                                                <TableColumn fx:id="ColNomLA" prefWidth="75.0" text="Nom" />
-                                                <TableColumn fx:id="ColCodeLA" prefWidth="75.0" text="Code" />
-                                                <TableColumn fx:id="colUniteMesureLA" prefWidth="75.0" text="Unité de mesure" />
-                                                <TableColumn fx:id="ColPrixAchatLA" prefWidth="75.0" text="Prix Achat" />
-                                                <TableColumn fx:id="ColPrixVenteLA" prefWidth="75.0" text="Prix Vente" />
-                                                <TableColumn fx:id="ColQuantiteLA" prefWidth="75.0" text="Quantite" />
-                                             </columns>
-                                          </TableView>
-                                          <Text fx:id="valeurListeAchat" fill="#192e40" layoutX="78.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="327.7294921875" AnchorPane.bottomAnchor="44.541014671325684" AnchorPane.leftAnchor="83.0">
+                                          <Text fx:id="valeurStock" fill="#192e40" layoutX="197.0" layoutY="565.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Text" wrappingWidth="361.7294921875" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="423.0">
                                              <font>
                                                 <Font name="System Bold Italic" size="15.0" />
                                              </font>
@@ -81,7 +96,14 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
                            <children>
-                              <TableView fx:id="listePersonnel" layoutX="165.0" layoutY="60.0" prefHeight="479.0" prefWidth="559.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="60.0" />
+                              <TableView fx:id="listePersonnel" layoutX="165.0" layoutY="60.0" prefHeight="479.0" prefWidth="559.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="60.0">
+                                 <columns>
+                                    <TableColumn prefWidth="128.0" text="Column X" />
+                                    <TableColumn prefWidth="102.0" text="Column X" />
+                                    <TableColumn prefWidth="102.0" text="Column X" />
+                                    <TableColumn prefWidth="120.0" text="Column X" />
+                                    <TableColumn prefWidth="96.0" text="Column X" />
+                                 </columns></TableView>
                               <Text layoutX="281.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des personnels" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="13.0">
                                  <font>
                                     <Font name="System Bold" size="22.0" />
@@ -89,28 +111,6 @@
                            </children>
                         </AnchorPane>
                     </content>
-                  </Tab>
-                  <Tab text="Chaines">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@css.css">
-                           <children>
-                              <TableView fx:id="listeChaine" layoutX="85.0" layoutY="66.0" prefHeight="440.0" prefWidth="671.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="65.0">
-                                <columns>
-                                  <TableColumn prefWidth="177.0" />
-                                  <TableColumn prefWidth="147.0" />
-                                </columns>
-                              </TableView>
-                              <Text fill="#192e40" layoutX="232.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Simulation" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="13.5791015625">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Text>
-                              <Button fx:id="btnSimulation" layoutX="435.0" layoutY="535.0" mnemonicParsing="false" onAction="#simulation" prefHeight="33.0" prefWidth="118.0" text="Simuler" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="435.0" />
-                              <TextArea fx:id="areaErreur" layoutX="740.0" layoutY="363.0" prefHeight="120.0" prefWidth="200.0" AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="40.0" />
-                              <TextArea fx:id="areaBenefice" layoutX="742.0" layoutY="65.0" prefHeight="106.0" prefWidth="200.0" AnchorPane.bottomAnchor="434.0" AnchorPane.rightAnchor="40.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
                   </Tab>
                </tabs>
             </TabPane>

@@ -28,6 +28,7 @@ import models.Element.*;
 import models.Personnel.Personnel;
 import models.Stock.ListeAchat;
 import models.Stock.Stock;
+import views.FichiersCtrl;
 import views.SimulationCtrl;
 import views.StockCtrl;
 
@@ -45,26 +46,6 @@ public class FactoryApp extends Application {
 		this.chaineData = FXCollections.observableArrayList();
 		this.personnelData = FXCollections.observableArrayList(); 
 		
-//		for(int i=0; i<8; i++)
-//		{
-//			boolean qual ;
-//			if(i%2==0) {
-//				qual = true;
-//			}
-//			else {
-//				qual = false ;
-//			}
-//			Random r = new Random();
-//			int temps = r.nextInt(25) + 10 ;
-//			Personnel p = new Personnel("00"+i , "Nom"+i, "Prenom"+i,qual,temps ) ;
-//			
-//			personnelData.add(p) ;
-//		}
-		
-		personnelData.addAll(Parser.personnelParser("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv"));
-		
-		
-		
 	 }
 
 	public static void main(String[] args) {
@@ -77,8 +58,40 @@ public class FactoryApp extends Application {
         this.primaryStage.setTitle("UsineApp");
 
         //Affichage de l'ecran 
-        showIndex();		
+        showIndex() ;
 	}
+	
+	/**
+	 * Affiche l'ecran permettant de charger les fichiers
+	 */
+	/*public void showFichier() {
+        try {
+        	//chargement du fichier fxml
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(FactoryApp.class.getResource("/views/fichiersDialog.fxml"));
+            loader.setClassLoader(this.getClass().getClassLoader());
+			BorderPane  indexView = (BorderPane) loader.load();
+			
+			 //affichage de l'index
+			Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Chargement des fichiers");
+	        Scene scene = new Scene(indexView);
+	        dialogStage.setScene(scene);
+	        dialogStage.show();
+	        
+	        //attribution du controller 
+	        FichiersCtrl fichiersCtrl = loader.getController();
+	        fichiersCtrl.setFactoryApp(this);
+	        fichiersCtrl.setDialogStage(this.primaryStage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
+	
+	/**
+	 * Affiche l'ecran permettant d'effectuer une simulation
+	 */
 	
 	public void showIndex() {
 		 
@@ -92,6 +105,8 @@ public class FactoryApp extends Application {
 	       
 	        
 	        //affichage de l'index 
+	     // cree la fenetre de dialogue
+	        
 	        Scene scene = new Scene(indexView);
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
@@ -99,8 +114,6 @@ public class FactoryApp extends Application {
 	        //attribution du controller 
 	        StockCtrl stockCtrl = loader.getController();
 	        stockCtrl.setFactoryApp(this);
-	       
-	         
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,6 +122,13 @@ public class FactoryApp extends Application {
         
 
 	}
+	
+	
+	/**
+	 * Affiche l'ecran permettant de voir l'etat des stocks apres la simulation
+	 * @param stock
+	 * @param listePersonnel
+	 */
 	
 	public void showSimulationDialog(Stock stock, ObservableList<Personnel> listePersonnel ) {
 	    try {
@@ -121,8 +141,6 @@ public class FactoryApp extends Application {
 	        // cree la fenetre de dialogue
 	        Stage dialogStage = new Stage();
 	        dialogStage.setTitle("Stock après simulation");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(this.primaryStage);
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 
@@ -133,7 +151,7 @@ public class FactoryApp extends Application {
 	        controller.setPersonnelData(listePersonnel);
 
 	        // Show the dialog and wait until the user closes it
-	        //dialogStage.showAndWait();
+	        
 	        dialogStage.show();
 	    } catch (IOException e) {
 	        e.printStackTrace();
