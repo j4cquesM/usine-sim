@@ -77,21 +77,21 @@ public class Parser {
         Chaine c1 = new Chaine(nom,code, temps, qual, nonqual);
         String[] token_entree = entree.split(",");
         String[] token_sortie = sortie.split(",");
-        System.out.println("TOKENS ENTREE --- \n");
+        //("TOKENS ENTREE --- \n");
 
         for (int n = 0; n < (token_entree.length - 1); n=n+2) {
             String entree_code = token_entree[n].replace("(", "").replace(")", "");
-            System.out.println("Code = " + entree_code);
+            //System.out.println("Code = " + entree_code);
 
             String entree_quantite = token_entree[n + 1].replace("(", "").replace(")", "");
-            System.out.println("Quantite = " + entree_quantite);
+            //System.out.println("Quantite = " + entree_quantite);
             Element e = s.getElementByCode(entree_code);
             c1.addComposant(e,Double.parseDouble(entree_quantite));
 
         }
 
-        System.out.println("TOKENS SORTIE --- \n");
-        for (int n = 0; n < (token_sortie.length - 1); n=n+2) {
+        //System.out.println("TOKENS SORTIE --- \n");
+        /*for (int n = 0; n < (token_sortie.length - 1); n=n+2) {
             String sortie_code = token_sortie[n].replace("(", "").replace(")", "");
             System.out.println("Code = " + sortie_code);
 
@@ -102,7 +102,7 @@ public class Parser {
             //System.out.println(e.toString());
             c1.addSortie(e,Double.parseDouble(sortie_quantite));
 
-        }
+        }*/
         chaineData.add(c1);
     }
 
@@ -127,9 +127,9 @@ public class Parser {
         CSVReader chaines = new CSVReader(filePath);
         chaines.read();
         ArrayList data = chaines.getData();
-        for (int i = 0; i < data.size(); i++) {
+        /*for (int i = 0; i < data.size(); i++) {
             System.out.println(data.get(i));
-        }
+        }*/
     }
 
     /**
