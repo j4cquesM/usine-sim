@@ -57,8 +57,7 @@ public class Chaine {
 	/**
 	 * 
 	 * @param niveauActivation le niveau d'activation de la chaine
-	 * @param stock le stock 
-	 * @param listePersonnel liste des personnels qualifiés et non qualfiés 
+	 * @param stock le stock ou aller chercher les elements
 	 * @return le benefice produit
 	 *  @throws ProductionImpossibleException production impossible
 	 */
@@ -77,28 +76,23 @@ public class Chaine {
 					{
 						try {
 							stockSimulation.destocker(elem , quantite );
-							
 							if( stockSimulation.getQuantite(elem) < 0  ) {
 								
 								if( elem.isMatierePremiere() ) {
-									
 									//ajout à la liste d'achat 
 									double quantiteAchat = stockSimulation.getQuantiteMinAchat(elem);
-									
-									stock.acheter(elem, quantiteAchat);
-									
+									stockSimulation.acheter(elem, quantiteAchat);
 								}
 								else {
-									throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+" car "+elem.getNom()+" a un stock negatif" );
+									throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+" car "+elem.getNom()+" a un stock negatif \n" );
 								}
 							}
 							
 						} catch (NonExistantException e) {
 							// TODO Auto-generated catch block
-							throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+"\n"+e.getMessage());
+							throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+"n\n"+e.getMessage()+"\n");
 						}
 					}
-					
 			}
 			//ajout des elements en sortie de le stock
 			
@@ -114,7 +108,6 @@ public class Chaine {
 	/**
 	 * 
 	 * @param niveauActivation le niveau d'activation de la chaine
-	 * @param stock le stock 
 	 * @param listePersonnel liste des personnels qualifiés et non qualfiés 
 	 * @return le benefice produit
 	 *  @throws ProductionImpossibleException production impossible
@@ -159,7 +152,7 @@ public class Chaine {
 		else
 		{
 			throw new ProductionImpossibleException("Impossible de lancer la production de la chaine "+this.getNom()+" car "
-					+ "il n'y a pas assez de personnel qualifié ");
+					+ "il n'y a pas assez de personnel qualifié \n");
 		}
 		
 		ObservableList<Personnel> listeResultatObservable = FXCollections.observableArrayList(listeResultat);
@@ -169,7 +162,9 @@ public class Chaine {
 	/**
 	 * 
 	 * @param list liste des personnes à faire travailler 
+	 * @param niveauActivation le niveau d'activation de la chaine
 	 * @param forced indique si un qualifié fait le travail d'un non qualifié
+	 * @return la liste des personnel avec leur temps de travail
 	 */
 	
 	private ArrayList<Personnel> addTempsTravail ( ArrayList<Personnel> list,double niveauActivation , boolean forced ) {
@@ -180,7 +175,8 @@ public class Chaine {
 	}
 	
 	/**
-	 * @param listePersonnel
+	 * @param listePersonnel liste des personnel
+	 * @param niveauActivation le niveau d'activation de la chaine
 	 * @param nbRequis nombre de personnel qualifiés requis 
 	 * @return Renvoie les personnes qualifiés
 	 */

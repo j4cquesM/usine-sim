@@ -32,6 +32,10 @@ public class ElementAffichable extends Element {
 		return this.quantite;
 	}
 	
+	/**
+	 * Renvoie la saticfaction en fonction de la demande
+	 * @return le % de satisfaction
+	 */
 	public StringProperty getSatisfaction()
 	{
 		String message = "0" ;

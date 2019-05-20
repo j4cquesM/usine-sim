@@ -62,7 +62,6 @@ public class ListeAchat {
 	 */
 
 	public void acheter(Element e, double quantite) {
-		
 		Util.addInMap(this.achat, e, quantite);
 	}
 

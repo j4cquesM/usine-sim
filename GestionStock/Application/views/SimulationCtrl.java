@@ -25,6 +25,7 @@ import models.Stock.Stock;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
+import serializer.JSONListePersonnelTemplate;
 import serializer.JSONSerializer;
 import serializer.JSONTemplate;
 
@@ -251,14 +252,11 @@ public class SimulationCtrl implements Initializable {
     
     
     /**
-     * Methode pour 
+     * Methode pour exporter les stocks et les achats
      */
-
-   
-
     @FXML
     private void exporterListe() {
-        //pour avoir le stock tu fais this.getStockData()
+    	//pour avoir le stock tu fais this.getStockData()
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -284,16 +282,12 @@ public class SimulationCtrl implements Initializable {
             	 this.showIsEmpty();
             }
         }
-        
-            
-
-        
     }
 
     @FXML
     private void exporterPersonnel() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (.json)", ".json");
+    	FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
 
         File selectedFile = fileChooser.showSaveDialog(this.application.getPrimaryStage());
@@ -302,7 +296,7 @@ public class SimulationCtrl implements Initializable {
             if (  ! cheminDuFichier.isEmpty() ){
                 ArrayList<Personnel> listep = Util.retArrayList(this.personnelData);
 
-                JSONTemplate template = new JSONTemplate(cheminDuFichier, listep);
+                JSONListePersonnelTemplate template = new JSONListePersonnelTemplate(cheminDuFichier, listep);
                 JSONSerializer serializer = new JSONSerializer();
                 try {
                     serializer.serializeToFile(template);
@@ -314,11 +308,6 @@ public class SimulationCtrl implements Initializable {
                 this.showIsEmpty();
             }
         }
-        /*
-        int j = this.personnelData.size();
-        for(int i=0;i<j;i++){
-            this.personnelData.get(i);
-        }*/
 
     }
 

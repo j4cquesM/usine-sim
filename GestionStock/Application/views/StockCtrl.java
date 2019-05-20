@@ -234,6 +234,8 @@ public class StockCtrl implements Initializable {
        	);
     	}
     	
+    	//test
+    	//this.test();
     }
 
 
@@ -354,7 +356,7 @@ public class StockCtrl implements Initializable {
     @FXML 
     private void simulation() {
     	Stock stock = this.stockData ;
-    	Stock stockSimulation = stock ;
+    	Stock stockSimulation = new Stock(stock) ;
     	ObservableList<Personnel> personnelSimulation = this.personnelData ;
     	String messageErreur = "";
 		double benefice = 0 ;
@@ -374,9 +376,8 @@ public class StockCtrl implements Initializable {
     		}
     	}
     	
-    	System.out.println(stockSimulation);
         if(!afficheSimulation){
-        	 // Nothing selected.
+        	 // Nothing selected
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(this.application.getPrimaryStage());
             alert.setTitle("Données absentes");
@@ -385,8 +386,7 @@ public class StockCtrl implements Initializable {
 
             alert.showAndWait();
         }
-        
-        if( benefice > 0 ) {
+        if( benefice != 0 ) {
         	this.application.showSimulationDialog(stockSimulation,personnelSimulation );
         	String message = "Vous avez " + benefice +" de bénéfices. " ;
         	showAreaBenefice(message) ;
@@ -531,7 +531,7 @@ public class StockCtrl implements Initializable {
     
     /**
      * Regex sur les text field des niveau d'activation
-     * @param fieldNiveauActivation
+     * @param fieldNiveauActivation le champ à verifier
      */
     private void filtreNiveauActivation(TextField fieldNiveauActivation)
     {
@@ -602,10 +602,10 @@ public class StockCtrl implements Initializable {
     	Dialog<ArrayList<String>> dialog = new Dialog<>();
     	dialog.initOwner(this.application.getPrimaryStage());
     	dialog.setTitle("Chargement des fichiers");
-    	dialog.setHeaderText("Chemin d'acces vers les différents fichiers");
+    	dialog.setHeaderText("Chemin vers les différents fichiers");
     	
     	// button type
-    	ButtonType loginButtonType = new ButtonType("Enregistrer", ButtonData.OK_DONE);
+    	ButtonType loginButtonType = new ButtonType("Charger", ButtonData.OK_DONE);
     	ButtonType annulerButtonType = new ButtonType("Annuler" , ButtonData.CANCEL_CLOSE );
     	dialog.getDialogPane().getButtonTypes().addAll(loginButtonType,annulerButtonType);
     	
@@ -617,15 +617,15 @@ public class StockCtrl implements Initializable {
 
     	TextField elements = new TextField();
     	elements.setPromptText("/home/xxxx/documents/");
-    	elements.setText("/home/claude/Téléchargements/FichiersV2__78__0/elements.csv");
+    	//elements.setText("/home/claude/Téléchargements/FichiersV2__78__0/elements.csv");
     	
     	TextField chaines = new TextField();
     	chaines.setPromptText("/home/xxxx/documents/");
-    	chaines.setText("/home/claude/Téléchargements/FichiersV2__78__0/chaines.csv");
+    	//chaines.setText("/home/claude/Téléchargements/FichiersV2__78__0/chaines.csv");
     	
     	TextField personnel = new TextField();
     	personnel.setPromptText("/home/xxxx/documents/");
-    	personnel.setText("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv");
+    	//personnel.setText("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv");
     	
     	// ajout au grid pane
     	grid.add(new Label("Fichiers Elements:"), 0, 0);
@@ -638,20 +638,12 @@ public class StockCtrl implements Initializable {
     	grid.add(personnel, 1, 2);
     	
     	//descativation du bouton 
-//    	Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-//    	loginButton.setDisable(true);
-//    	
-//    	elements.textProperty().addListener((observable, oldValue, newValue) -> {
-//    	    loginButton.setDisable(newValue.trim().isEmpty());
-//    	});
-//    	
-//    	chaines.textProperty().addListener((observable, oldValue, newValue) -> {
-//    	    loginButton.setDisable(newValue.trim().isEmpty());
-//    	});
-//    	
-//    	personnel.textProperty().addListener((observable, oldValue, newValue) -> {
-//    	    loginButton.setDisable(newValue.trim().isEmpty());
-//    	});
+    	Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+    	//loginButton.setDisable(true);
+    	
+    	personnel.textProperty().addListener((observable, oldValue, newValue) -> {
+    	    loginButton.setDisable(newValue.trim().isEmpty());
+    	});
     	
     	//ajout de la grid pane dans le dialog
     	dialog.getDialogPane().setContent(grid);
@@ -696,6 +688,7 @@ public class StockCtrl implements Initializable {
 	 for(Chaine chaine :this.chaineData) {
 		 chaine.getNiveauActivation().setText(""); 
  	}
+	  btnMemorisation.setVisible(false);
  }
  /**
   *  chargement des elements csv
@@ -724,6 +717,54 @@ public class StockCtrl implements Initializable {
 	 this.fileElement = fichiers.get(0) ;
 	 this.fileChaine = fichiers.get(1) ;
 	 this.filePersonnel = fichiers.get(2) ;
+ }
+ 
+ private void test() {
+	 ArrayList <String> l1 = new ArrayList<>() ;
+	 ArrayList <String> l2 = new ArrayList<>() ;
+	 ArrayList <String> l3 = new ArrayList<>() ;
+	
+	 for(Chaine chaine :this.chaineData) {
+		 String ad1 = "" ;
+		 String ad2= "" ;
+		 String ad3 = "" ;
+		 if(chaine.getCode().equals("C001"))
+		 {
+			 ad1 = "10" ;
+			 ad3 = "5" ;
+		 }
+		
+		 
+		 if(chaine.getCode().equals("C006"))
+		 {
+			 ad2 = "80" ;
+			 ad3 = "5" ;
+		 }
+		 
+		 if(chaine.getCode().equals("C004"))
+		 {
+			 ad2 = "80" ;
+			 ad3 = "5" ;
+		 }
+		 
+		 if(chaine.getCode().equals("C007"))
+		 {
+			 ad1 = "5" ;
+		 }
+		 
+		 if(chaine.getCode().equals("C005"))
+		 {
+			 ad1 = "10" ;
+			 ad3 = "5" ;
+		 }
+		 l1.add(ad1) ;
+		 l2.add(ad2) ;
+		 l3.add(ad3);
+ 	}
+	this.listeSimulation.put("erreur produit fini", l1) ;
+	this.listeSimulation.put("erreur personnel", l2) ;
+	this.listeSimulation.put("production normale", l3) ;
+	
  }
     
 }

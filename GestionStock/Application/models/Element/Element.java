@@ -86,6 +86,11 @@ public class Element {
 	public DoubleProperty getDemandeProperty() {
 		return this.demande ;
 	}
+	
+	/**
+	 * Determine si l'element est une matière première 
+	 * @return true si le produit est une matière première
+	 */
 
 	public boolean isMatierePremiere() {
 		
@@ -96,6 +101,10 @@ public class Element {
 		return false;
 	}
 	
+	/**
+	 * Determine si l'element est produit fini 
+	 * @return true si le produit est un produit fini
+	 */
 	public boolean isProduitFini() {
 		if( this.getPrixVente() != 0 ) {
 			return true;

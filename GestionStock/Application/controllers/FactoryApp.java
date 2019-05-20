@@ -1,34 +1,18 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
-
-import parser.CSVReader;
-import parser.Parser ;
-
-
-
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Chaine.Chaine;
 import models.Element.*;
 import models.Personnel.Personnel;
-import models.Stock.ListeAchat;
 import models.Stock.Stock;
-import views.FichiersCtrl;
+
 import views.SimulationCtrl;
 import views.StockCtrl;
 
@@ -92,8 +76,8 @@ public class FactoryApp extends Application {
 	
 	/**
 	 * Affiche l'ecran permettant de voir l'etat des stocks apres la simulation
-	 * @param stock
-	 * @param listePersonnel
+	 * @param stock le nouveau stock
+	 * @param listePersonnel la liste des personnels
 	 */
 	
 	public void showSimulationDialog(Stock stock, ObservableList<Personnel> listePersonnel ) {

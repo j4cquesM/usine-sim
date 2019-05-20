@@ -72,8 +72,9 @@ public class Personnel {
 	
 	/**
 	 * Ajoute sur le planning du personnel une chaine
-	 * @param 
-	 * @param temps
+	 * @param nomChaine nom de la chaine
+	 * @param temps temps de travail
+	 * @param qualification la qualification du personnel
 	 */
 	public void addTempsTravail(String nomChaine, double temps,boolean qualification)
 	{
@@ -141,6 +142,10 @@ public class Personnel {
 		return this.qualification ;
 	}
 	
+	/**
+	 * Renvoie la un string representant la qualification
+	 * @return la qualification 
+	 */
 	public StringProperty getQualificationPropertyStr()
 	{
 		StringProperty result = new SimpleStringProperty() ;
@@ -181,6 +186,14 @@ public class Personnel {
 	
 	public StringProperty getCodeProperty() {
 		return this.code ;
+	}
+	
+	public HashMap<String,Double> getRepartitionQualifiee() {
+		return this.repartitionQualifiee;
+	}
+
+	public HashMap<String,Double> getRepartitionNonQualifiee() { 
+		return this.repartitionNonQualifiee;
 	}
 	
 	/**
