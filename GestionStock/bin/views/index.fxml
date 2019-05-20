@@ -49,7 +49,10 @@
                                  <children>
                                     <Label fx:id="labelHistorique" prefHeight="40.0" prefWidth="234.0" styleClass="label3" text="Historique des simulations" />
                                     <ListView fx:id="listViewSimalation" prefHeight="125.0" prefWidth="234.0" />
-                                    <Label fx:id="labelBenefice" prefHeight="129.0" prefWidth="231.0" styleClass="labelBenefice" text="Label benefices" />
+                                    <Text fx:id="areaBenefice" fill="#20615a" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="232.7294921875">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font></Text>
                                  </children>
                               </VBox>
                            </children>

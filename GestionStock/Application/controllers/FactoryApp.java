@@ -62,34 +62,6 @@ public class FactoryApp extends Application {
 	}
 	
 	/**
-	 * Affiche l'ecran permettant de charger les fichiers
-	 */
-	/*public void showFichier() {
-        try {
-        	//chargement du fichier fxml
-    		FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(FactoryApp.class.getResource("/views/fichiersDialog.fxml"));
-            loader.setClassLoader(this.getClass().getClassLoader());
-			BorderPane  indexView = (BorderPane) loader.load();
-			
-			 //affichage de l'index
-			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Chargement des fichiers");
-	        Scene scene = new Scene(indexView);
-	        dialogStage.setScene(scene);
-	        dialogStage.show();
-	        
-	        //attribution du controller 
-	        FichiersCtrl fichiersCtrl = loader.getController();
-	        fichiersCtrl.setFactoryApp(this);
-	        fichiersCtrl.setDialogStage(this.primaryStage);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	
-	/**
 	 * Affiche l'ecran permettant d'effectuer une simulation
 	 */
 	
@@ -102,11 +74,8 @@ public class FactoryApp extends Application {
 	        loader.setLocation(FactoryApp.class.getResource("/views/index.fxml"));
 	        loader.setClassLoader(this.getClass().getClassLoader());
 	        AnchorPane  indexView = (AnchorPane) loader.load();
-	       
-	        
 	        //affichage de l'index 
-	     // cree la fenetre de dialogue
-	        
+	     
 	        Scene scene = new Scene(indexView);
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
@@ -118,9 +87,6 @@ public class FactoryApp extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-         
-        
-
 	}
 	
 	
@@ -151,7 +117,6 @@ public class FactoryApp extends Application {
 	        controller.setPersonnelData(listePersonnel);
 
 	        // Show the dialog and wait until the user closes it
-	        
 	        dialogStage.show();
 	    } catch (IOException e) {
 	        e.printStackTrace();

@@ -5,10 +5,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controllers.*;
 import exception.ProductionImpossibleException;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,21 +18,30 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 import models.Stock.*;
 import models.Element.*;
 import models.Personnel.Personnel;
@@ -74,16 +85,10 @@ public class StockCtrl implements Initializable {
     private TextField nomSimulation ;
     
     @FXML
-    private Text areaErreur ;
+    private Text areaBenefice ;
     
     @FXML
     private Label labelHistorique ;
-    
-    @FXML
-    private Label labelBenefice ;
-    
-    @FXML
-    private Label labelErreur ;
    
     @FXML
     private Text valeurStock;
@@ -193,31 +198,40 @@ public class StockCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Auto-generated method stub
     	
-    
-    	
-    	//affiche la liste des stocks
-    	 this.chargerElementCSV();
-    	      
-       //affiche la liste des chaines
-         this.chargerChaineCSV();
-    	 
-       //affiche la liste des personnels
-         this.chargerPersonnelCSV();
+    	//chemin d'acces des fichiers
+    	this.alertFichier();
     	
     	//desactive le champ benefice
-    	this.disableAreas();
+       	this.disableAreas();
+       	
+       	//desactive les elements relatifs à l'enregistrement
+       	this.disableEnregistrement();
+       	
     	
-    	//desactive les elements relatifs à l'enregistrement
-    	this.disableEnregistrement();
-    	
-    	//remplissage des niveaux d'activation
-    	this.listViewSimalation.getSelectionModel().selectedItemProperty().addListener(
-    			 (observable, oldValue, newValue) ->  remplirNiveauActivation(newValue)
-    	);
-    	
-    	//S'assure que les niveaux d'activation soient bien des entiers numériques
-    	for(Chaine chaine :this.chaineData) {
-    		this.filtreNiveauActivation(chaine.getNiveauActivation());
+    	if(!this.fileElement.isEmpty() && !this.fileChaine.isEmpty() && !this.filePersonnel.isEmpty()) {
+    		//affiche la liste des stocks
+       	 this.chargerElementCSV();
+       	      
+          //affiche la liste des chaines
+            this.chargerChaineCSV();
+       	 
+          //affiche la liste des personnels
+            this.chargerPersonnelCSV();
+       	
+       
+       	//remplissage des niveaux d'activation
+       	this.listViewSimalation.getSelectionModel().selectedItemProperty().addListener(
+       			 (observable, oldValue, newValue) ->  remplirNiveauActivation(newValue)
+       	);
+       	
+       	//S'assure que les niveaux d'activation soient bien des entiers numériques
+       	for(Chaine chaine :this.chaineData) {
+       		this.filtreNiveauActivation(chaine.getNiveauActivation());
+       	}
+       	
+       	nomSimulation.textProperty().addListener(
+       			(observable, oldValue, newValue) ->  this.btnEnregistrer.setDisable(newValue.trim().isEmpty())
+       	);
     	}
     	
     }
@@ -345,7 +359,6 @@ public class StockCtrl implements Initializable {
     	String messageErreur = "";
 		double benefice = 0 ;
 		boolean afficheSimulation = false ;
-		System.out.println(this.chaineData);
     	for(Chaine chaineAffichable :this.chaineData) {
     		
     		String niveauActivation = chaineAffichable.getNiveauActivation().getText() ;
@@ -413,14 +426,15 @@ public class StockCtrl implements Initializable {
     			this.listeSimulation.put(nom, listeChaine) ;
     		}else {
     			this.showSimulationExist() ;
-    		}   			
+    		}   
+        	this.remplirSimulation();
+        	this.disableEnregistrement();
     	}
     	else
     	{
     		this.showSimulationEmpty();
     	}
-    	this.remplirSimulation();
-    	this.disableEnregistrement();
+		
     }
     
     /**
@@ -430,6 +444,7 @@ public class StockCtrl implements Initializable {
     	 ObservableList<String> nom = FXCollections.observableArrayList(this.listeSimulation.keySet());
     	 listViewSimalation.setItems(nom);
     	 this.enableHistorique() ;
+    	 this.remiseAZero() ;
     }
     
     
@@ -438,8 +453,6 @@ public class StockCtrl implements Initializable {
      * @param nom de la simulation
      */
     private void remplirNiveauActivation(String nom) {
-    	this.labelBenefice.setVisible(false);
-    	this.labelErreur.setVisible(false);
     	if(this.listeSimulation.containsKey(nom))
     	{
     		ArrayList<String> newValue = this.listeSimulation.get(nom) ;
@@ -460,8 +473,7 @@ public class StockCtrl implements Initializable {
      */
     private void disableAreas() {
     	this.disableHistorique() ;
-    	labelBenefice.setVisible(false) ;
-    	labelErreur.setVisible(false) ;
+    	 areaBenefice.setVisible(false) ;
         //valeurStock.setVisible(false);
         //valeurListeAchat.setVisible(false);
     }
@@ -481,18 +493,40 @@ public class StockCtrl implements Initializable {
      * @param message messaqge à afficher
      */
     private void showAreaBenefice( String message ) {
-    	labelBenefice.setText(message);
-        labelBenefice.setVisible(true) ;
+        areaBenefice.setVisible(true) ;
+        areaBenefice.setText(message) ;
         btnMemorisation.setVisible(true) ;
     }
     
     /**
-     * Active le text are erreur
+     * Affiche l'alert d'erreur 
      * @param message message à afficher
      */
     private void showAreaErreur( String message ) {
-    	labelErreur.setText(message);
-    	labelErreur.setVisible(true) ;
+    	Alert alert = new Alert(AlertType.ERROR);
+    	alert.setTitle("Production impossible");
+    	alert.setHeaderText("Erreur dans la production de certaines chaines");
+    	
+    	Label label = new Label("Details des erreurs :");
+    	
+    	TextArea textArea = new TextArea(message);
+    	textArea.setEditable(false);
+    	textArea.setWrapText(true);
+
+    	textArea.setMaxWidth(Double.MAX_VALUE);
+    	textArea.setMaxHeight(Double.MAX_VALUE);
+    	GridPane.setVgrow(textArea, Priority.ALWAYS);
+    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+    	GridPane expContent = new GridPane();
+    	expContent.setMaxWidth(Double.MAX_VALUE);
+    	expContent.add(label, 0, 0);
+    	expContent.add(textArea, 0, 1);
+
+    	// Set expandable Exception into the dialog pane.
+    	alert.getDialogPane().setExpandableContent(expContent);
+
+    	alert.showAndWait();
     }
     
     /**
@@ -536,7 +570,7 @@ public class StockCtrl implements Initializable {
         labelSimulation.setVisible(true);
     } 
     /**
-     * alert
+     * alert verification simulation
      */
     private void showSimulationEmpty() {
         Alert alert = new Alert(AlertType.WARNING);
@@ -549,7 +583,7 @@ public class StockCtrl implements Initializable {
     }
     
     /**
-     * alert
+     * alert non duplication simulation
      */
     private void showSimulationExist() {
         Alert alert = new Alert(AlertType.WARNING);
@@ -561,23 +595,115 @@ public class StockCtrl implements Initializable {
         alert.showAndWait();
     }
     
+    /**
+     * alert chargement des fichiers
+     */
+    private void alertFichier() {
+    	Dialog<ArrayList<String>> dialog = new Dialog<>();
+    	dialog.initOwner(this.application.getPrimaryStage());
+    	dialog.setTitle("Chargement des fichiers");
+    	dialog.setHeaderText("Chemin d'acces vers les différents fichiers");
+    	
+    	// button type
+    	ButtonType loginButtonType = new ButtonType("Enregistrer", ButtonData.OK_DONE);
+    	ButtonType annulerButtonType = new ButtonType("Annuler" , ButtonData.CANCEL_CLOSE );
+    	dialog.getDialogPane().getButtonTypes().addAll(loginButtonType,annulerButtonType);
+    	
+    	// les champs input
+    	GridPane grid = new GridPane();
+    	grid.setHgap(10);
+    	grid.setVgap(10);
+    	grid.setPadding(new Insets(20, 150, 10, 10));
+
+    	TextField elements = new TextField();
+    	elements.setPromptText("/home/xxxx/documents/");
+    	elements.setText("/home/claude/Téléchargements/FichiersV2__78__0/elements.csv");
+    	
+    	TextField chaines = new TextField();
+    	chaines.setPromptText("/home/xxxx/documents/");
+    	chaines.setText("/home/claude/Téléchargements/FichiersV2__78__0/chaines.csv");
+    	
+    	TextField personnel = new TextField();
+    	personnel.setPromptText("/home/xxxx/documents/");
+    	personnel.setText("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv");
+    	
+    	// ajout au grid pane
+    	grid.add(new Label("Fichiers Elements:"), 0, 0);
+    	grid.add(elements, 1, 0);
+    	
+    	grid.add(new Label("Fichiers Chaines:"), 0, 1);
+    	grid.add(chaines, 1, 1);
+    	
+    	grid.add(new Label("Fichiers Personnel:"), 0, 2);
+    	grid.add(personnel, 1, 2);
+    	
+    	//descativation du bouton 
+//    	Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+//    	loginButton.setDisable(true);
+//    	
+//    	elements.textProperty().addListener((observable, oldValue, newValue) -> {
+//    	    loginButton.setDisable(newValue.trim().isEmpty());
+//    	});
+//    	
+//    	chaines.textProperty().addListener((observable, oldValue, newValue) -> {
+//    	    loginButton.setDisable(newValue.trim().isEmpty());
+//    	});
+//    	
+//    	personnel.textProperty().addListener((observable, oldValue, newValue) -> {
+//    	    loginButton.setDisable(newValue.trim().isEmpty());
+//    	});
+    	
+    	//ajout de la grid pane dans le dialog
+    	dialog.getDialogPane().setContent(grid);
+    	
+    	//focus sur element
+    	Platform.runLater(() -> elements.requestFocus());
+    	
+    	// convertit le resultat en array list quand on a cliqué
+    	dialog.setResultConverter(dialogButton -> {
+    	    if (dialogButton == loginButtonType) {
+    	    	ArrayList<String> result = new ArrayList<>() ;
+    	    	result.add(elements.getText()) ;
+    	    	result.add(chaines.getText()) ;
+    	    	result.add(personnel.getText()) ;
+    	        return result;
+    	    }
+    	    	 return null;
+    	   
+    	});
+
+    
+    	Optional<ArrayList<String>> result = dialog.showAndWait();
+    	
+    	result.ifPresent(nomFichiers -> this.cheminAcces(nomFichiers));
+    	
+    }
     
  /**
   * chargement des chaines csv
   */
  private void chargerChaineCSV() {
          ObservableList<Chaine> chaineData = this.application.getChaineData();
-         Parser.chaineParser("/home/claude/Téléchargements/FichiersV2__78__0/chaines.csv", chaineData, this.application.getStockData());
+         Parser.chaineParser(this.fileChaine, chaineData, this.application.getStockData());
          this.afficheListeChaine();    
  }
  
+ /**
+  * Remise à 0 des champs d'activation
+  */
+ 
+ private void remiseAZero(){
+	 for(Chaine chaine :this.chaineData) {
+		 chaine.getNiveauActivation().setText(""); 
+ 	}
+ }
  /**
   *  chargement des elements csv
   */
 
  private void chargerElementCSV() {
       Stock stock = this.application.getStockData();
-      Parser.elementParser("/home/claude/Téléchargements/FichiersV2__78__0/elements.csv", stock);
+      Parser.elementParser(this.fileElement, stock);
       this.afficheStock();
 
  }
@@ -586,10 +712,18 @@ public class StockCtrl implements Initializable {
   * chargement des personeels csv
   */
  private void chargerPersonnelCSV() {
+ 	
  	//generer la arrayList de personnel
  	//set les personnels  dans le factory app
-	 this.application.getPersonnelData().addAll(Parser.personnelParser("/home/claude/Téléchargements/FichiersV2__78__0/personnel.csv")) ;
+	 this.application.getPersonnelData().addAll(Parser.personnelParser(this.filePersonnel)) ;
  	this.afficheListePersonnel() ;
+ }
+ 
+ private void cheminAcces(ArrayList<String> fichiers)
+ {
+	 this.fileElement = fichiers.get(0) ;
+	 this.fileChaine = fichiers.get(1) ;
+	 this.filePersonnel = fichiers.get(2) ;
  }
     
 }
